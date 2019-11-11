@@ -13,7 +13,7 @@ namespace Services.DbContextFactory
     {
         private readonly DbContext _context;
 
-        public GoGoContextFactory(IOptions<EnvironmentStringKey> connectionStringKey)
+        public GoGoContextFactory(IOptions<DbStringKey> connectionStringKey)
         {
             _context = new GoGoDbContext(connectionStringKey.Value.KeyValue);
         }

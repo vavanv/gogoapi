@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services.Cache
 {
-    internal interface ICacheService
+    public interface ICacheService
     {
         Task<ICollection<Entities.Cache>> GetStops();
+        void UpdateCache(string code, string stop);
     }
 }

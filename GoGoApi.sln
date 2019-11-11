@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoGoApi", "GoGoApi\GoGoApi.csproj", "{1DE3D329-CC40-4E2C-9EB4-F83F85CEDA61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{A27B4EE2-09E7-4B05-9BD6-33B5E76B433D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{A27B4EE2-09E7-4B05-9BD6-33B5E76B433D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{44C04F86-1105-449D-ADD1-EDADB3DAF360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "Configuration\Configuration.csproj", "{44C04F86-1105-449D-ADD1-EDADB3DAF360}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{EC2C9589-6421-41AA-8B4A-D7B21B360181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{44C04F86-1105-449D-ADD1-EDADB3DAF360}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44C04F86-1105-449D-ADD1-EDADB3DAF360}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44C04F86-1105-449D-ADD1-EDADB3DAF360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC2C9589-6421-41AA-8B4A-D7B21B360181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC2C9589-6421-41AA-8B4A-D7B21B360181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC2C9589-6421-41AA-8B4A-D7B21B360181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC2C9589-6421-41AA-8B4A-D7B21B360181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
