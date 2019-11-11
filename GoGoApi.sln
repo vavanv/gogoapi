@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoGoApi", "GoGoApi\GoGoApi.csproj", "{1DE3D329-CC40-4E2C-9EB4-F83F85CEDA61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{A27B4EE2-09E7-4B05-9BD6-33B5E76B433D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{44C04F86-1105-449D-ADD1-EDADB3DAF360}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DE3D329-CC40-4E2C-9EB4-F83F85CEDA61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE3D329-CC40-4E2C-9EB4-F83F85CEDA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE3D329-CC40-4E2C-9EB4-F83F85CEDA61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE3D329-CC40-4E2C-9EB4-F83F85CEDA61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A27B4EE2-09E7-4B05-9BD6-33B5E76B433D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27B4EE2-09E7-4B05-9BD6-33B5E76B433D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A27B4EE2-09E7-4B05-9BD6-33B5E76B433D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A27B4EE2-09E7-4B05-9BD6-33B5E76B433D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C04F86-1105-449D-ADD1-EDADB3DAF360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C04F86-1105-449D-ADD1-EDADB3DAF360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C04F86-1105-449D-ADD1-EDADB3DAF360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C04F86-1105-449D-ADD1-EDADB3DAF360}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {37E9280B-46DC-4894-BDD5-0B8C9293F4C2}
+	EndGlobalSection
+EndGlobal
