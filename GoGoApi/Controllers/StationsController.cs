@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 using Services.Models.AllStops;
+using Services.Models.StopDetail;
 using Services.Services.Cache;
-using Services.StopDetail;
 
 namespace GoGoApi.Controllers
 {

@@ -3,7 +3,7 @@ using AutoMapper;
 
 using GoGoApi.Models;
 
-using Services.StopDetail;
+using Services.Models.StopDetail;
 
 namespace GoGoApi.Mappers
 {

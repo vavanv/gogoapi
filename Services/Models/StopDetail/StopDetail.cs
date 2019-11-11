@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Services.Models.Common;
 
-namespace Services.StopDetail
+namespace Services.Models.StopDetail
 {
     public class StopDetail
     {
