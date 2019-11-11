@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-using Services.DbConext;
+using Services.DbContextFactory;
 
 namespace Services.UnitOfWork
 {

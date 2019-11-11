@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Services.DbConext
+namespace Services.DbContextFactory
 {
     public interface IGoGoContextFactory
     {

@@ -5,8 +5,6 @@ using Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-using Services.DbConext;
-
 namespace Services.DbContextFactory
 {
     public class GoGoContextFactory : IGoGoContextFactory
