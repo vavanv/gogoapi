@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using AutoMapper;
 
 using GoGoApi.Models;
@@ -47,6 +48,11 @@ namespace GoGoApi.Mappers
         public Stop MapFrom(StopModel model, Stop itemEntity)
         {
             return _mapper.Map(model, itemEntity);
+        }
+
+        public IEnumerable<StopModel> MapFrom(IEnumerable<Stop> entities)
+        {
+            return _mapper.Map<List<StopModel>>(entities);
         }
     }
 }

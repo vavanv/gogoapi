@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
+using System.Threading.Tasks;
+using GoGoApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 using Newtonsoft.Json;
@@ -14,17 +16,43 @@ using Services.Services.Cache;
 namespace GoGoApi.Controllers
 {
     //[Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     [Produces("application/json")]
     public class StationsController : ControllerBase
     {
         private readonly ICacheService _cacheService;
+        private readonly IStopDetailMapper _mapper;
 
-        public StationsController(ICacheService cacheService)
+        public StationsController(ICacheService cacheService, IStopDetailMapper mapper)
         {
             _cacheService = cacheService;
+            _mapper = mapper;
         }
 
+        [HttpGet("api/stop/list")]
+        public async Task<IActionResult> GetStopList()
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var cache = await _cacheService.GetStops();
+                    var stops = new List<Stop>();
+                    foreach (var c in cache)
+                    {
+                        stops.Add(JsonConvert.DeserializeObject<Stop>(c.Data));
+                    }
+                    return Ok(_mapper.MapFrom(stops));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("error", ex.Message);
+                }
+            }
+
+            return BadRequest(ModelState.ToDictionary(k => k.Key,
+                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
+        }
 
         [HttpGet("api/update")]
         public IActionResult UpdateData()

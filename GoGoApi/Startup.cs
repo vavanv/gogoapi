@@ -42,6 +42,7 @@ namespace GoGoApi
             Bootstrapper.Initialize(services, _configuration, new IBootstrapperExtension[]
             {
                 new ServicesBootstrapperExtension(),
+                new MapperBootstrapperExtension()
             });
 
             services.AddControllers();

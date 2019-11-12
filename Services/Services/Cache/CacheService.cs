@@ -21,8 +21,7 @@ namespace Services.Services.Cache
 
         public async Task<ICollection<Entities.Cache>> GetStops()
         {
-            var type = (int) DataType.StopDetail;
-            var stops = await _cacheRepository.FindAll(t => t.Type == type);
+            var stops = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
 
             return stops;
         }
