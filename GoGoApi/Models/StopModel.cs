@@ -8,5 +8,7 @@
         public string StreetName { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public bool IsBus { get; set; }
+        public bool IsTrain { get; set; }
     }
 }

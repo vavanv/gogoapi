@@ -22,8 +22,6 @@ namespace GoGoApi.Mappers
                     .ForMember(i => i.StreetNumber, c => c.Ignore())
                     .ForMember(i => i.Intersection, c => c.Ignore())
                     .ForMember(i => i.StopNameFr, c => c.Ignore())
-                    .ForMember(i => i.IsBus, c => c.Ignore())
-                    .ForMember(i => i.IsTrain, c => c.Ignore())
                     .ForMember(i => i.DrivingDirections, c => c.Ignore())
                     .ForMember(i => i.DrivingDirectionsFr, c => c.Ignore())
                     .ForMember(i => i.BoardingInfo, c => c.Ignore())
