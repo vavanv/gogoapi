@@ -19,13 +19,6 @@ namespace Services.Services.Cache
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ICollection<Entities.Cache>> GetStops()
-        {
-            var stops = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
-
-            return stops;
-        }
-
         public void UpdateCache(string code, string stop)
         {
             var cache = _cacheRepository.FindOneSync(c => c.Code == code);

@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Services.Models.AllStops;
 using Services.Models.StopDetail;
 using Services.Services.Cache;
+using Services.Services.Stop;
 
 namespace GoGoApi.Controllers
 {
@@ -21,11 +22,13 @@ namespace GoGoApi.Controllers
     public class StationsController : ControllerBase
     {
         private readonly ICacheService _cacheService;
+        private readonly IStopService _stopService;
         private readonly IStopDetailMapper _mapper;
 
-        public StationsController(ICacheService cacheService, IStopDetailMapper mapper)
+        public StationsController(ICacheService cacheService, IStopService stopService, IStopDetailMapper mapper)
         {
             _cacheService = cacheService;
+            _stopService = stopService;
             _mapper = mapper;
         }
 
@@ -36,12 +39,7 @@ namespace GoGoApi.Controllers
             {
                 try
                 {
-                    var cache = await _cacheService.GetStops();
-                    var stops = new List<Stop>();
-                    foreach (var c in cache)
-                    {
-                        stops.Add(JsonConvert.DeserializeObject<Stop>(c.Data));
-                    }
+                    var stops = await _stopService.GetStops();
                     return Ok(_mapper.MapFrom(stops));
                 }
                 catch (Exception ex)
