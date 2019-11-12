@@ -19,8 +19,11 @@ namespace Services
         {
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<IStopService, StopService>();
+
             services.AddScoped<IGoGoContextFactory, GoGoContextFactory>();
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         }
     }

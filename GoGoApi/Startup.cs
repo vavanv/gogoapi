@@ -1,3 +1,5 @@
+using System;
+
 using Configuration;
 
 using Framework.Dependency;
@@ -63,10 +65,7 @@ namespace GoGoApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
