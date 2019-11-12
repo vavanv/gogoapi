@@ -55,6 +55,11 @@ namespace Services.Repository
             return await _context.Set<TEntity>().Where(predicate).FirstAsync();
         }
 
+        public TEntity FindOneSync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _context.Set<TEntity>().Where(predicate).FirstOrDefault();
+        }
+
         public virtual async Task<ICollection<TEntity>> All()
         {
             return await _context.Set<TEntity>().AsNoTracking().ToArrayAsync();

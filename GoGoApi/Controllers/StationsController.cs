@@ -63,6 +63,8 @@ namespace GoGoApi.Controllers
                             }
                         }
                     }
+
+                    return Ok();
                 }
                 catch (Exception ex)
                 {

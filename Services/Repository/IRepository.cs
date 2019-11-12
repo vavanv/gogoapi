@@ -22,6 +22,8 @@ namespace Services.Repository
         void Attach(TEntity instance);
 
         Task<TEntity> FindOne(Expression<Func<TEntity, bool>> predicate);
+        
+        TEntity FindOneSync(Expression<Func<TEntity, bool>> predicate);
 
         Task<TEntity> First();
 

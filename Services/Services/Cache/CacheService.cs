@@ -21,14 +21,15 @@ namespace Services.Services.Cache
 
         public async Task<ICollection<Entities.Cache>> GetStops()
         {
-            var stops = await _cacheRepository.FindAll(t => t.Type == (int) DataType.StopDetail);
+            var type = (int) DataType.StopDetail;
+            var stops = await _cacheRepository.FindAll(t => t.Type == type);
 
             return stops;
         }
 
         public void UpdateCache(string code, string stop)
         {
-            var cache = _cacheRepository.FindOne(c => c.Code == code).Result;
+            var cache = _cacheRepository.FindOneSync(c => c.Code == code);
             if (cache == null)
             {
                 cache = new Entities.Cache {Type = (int) DataType.StopDetail, Code = code, Data = stop};
