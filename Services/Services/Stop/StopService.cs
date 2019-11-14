@@ -29,5 +29,37 @@ namespace Services.Services.Stop
 
             return stops;
         }
+
+        public async Task<ICollection<Models.StopDetail.Stop>> GetBusStops()
+        {
+            var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
+            var stops = new List<Models.StopDetail.Stop>();
+            foreach (var c in cache)
+            {
+                var o = JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data);
+                if (o.IsBus)
+                {
+                    stops.Add(o);
+                }
+            }
+
+            return stops;
+        }
+
+        public async Task<ICollection<Models.StopDetail.Stop>> GetTrainStops()
+        {
+            var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
+            var stops = new List<Models.StopDetail.Stop>();
+            foreach (var c in cache)
+            {
+                var o = JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data);
+                if (o.IsTrain)
+                {
+                    stops.Add(o);
+                }
+            }
+
+            return stops;
+        }
     }
 }
