@@ -51,45 +51,45 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        [HttpGet("api/stop/bus/list")]
-        public async Task<IActionResult> GetStopBusList()
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var stops = await _stopService.GetBusStops();
-                    return Ok(_mapper.MapFrom(stops));
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("error", ex.Message);
-                }
-            }
+        //[HttpGet("api/stop/bus/list")]
+        //public async Task<IActionResult> GetStopBusList()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            var stops = await _stopService.GetBusStops();
+        //            return Ok(_mapper.MapFrom(stops));
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("error", ex.Message);
+        //        }
+        //    }
 
-            return BadRequest(ModelState.ToDictionary(k => k.Key,
-                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
-        }
+        //    return BadRequest(ModelState.ToDictionary(k => k.Key,
+        //        k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
+        //}
 
-        [HttpGet("api/stop/train/list")]
-        public async Task<IActionResult> GetStopTrainList()
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var stops = await _stopService.GetTrainStops();
-                    return Ok(_mapper.MapFrom(stops));
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("error", ex.Message);
-                }
-            }
+        //[HttpGet("api/stop/train/list")]
+        //public async Task<IActionResult> GetStopTrainList()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            var stops = await _stopService.GetTrainStops();
+        //            return Ok(_mapper.MapFrom(stops));
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("error", ex.Message);
+        //        }
+        //    }
 
-            return BadRequest(ModelState.ToDictionary(k => k.Key,
-                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
-        }
+        //    return BadRequest(ModelState.ToDictionary(k => k.Key,
+        //        k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
+        //}
 
         [HttpGet("api/update")]
         public IActionResult UpdateData()
