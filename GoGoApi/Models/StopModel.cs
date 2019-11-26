@@ -10,5 +10,8 @@
         public decimal Latitude { get; set; }
         public bool IsBus { get; set; }
         public bool IsTrain { get; set; }
+        public string StreetNumber { get; set; }
+        public string Intersection { get; set; }
+        public string DrivingDirections { get; set; }
     }
 }

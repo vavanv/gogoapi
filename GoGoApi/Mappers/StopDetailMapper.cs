@@ -20,10 +20,7 @@ namespace GoGoApi.Mappers
                 configuration.CreateMap<Stop, StopModel>();
                 configuration.CreateMap<StopModel, Stop>()
                     .ForMember(i => i.ZoneCode, c => c.Ignore())
-                    .ForMember(i => i.StreetNumber, c => c.Ignore())
-                    .ForMember(i => i.Intersection, c => c.Ignore())
                     .ForMember(i => i.StopNameFr, c => c.Ignore())
-                    .ForMember(i => i.DrivingDirections, c => c.Ignore())
                     .ForMember(i => i.DrivingDirectionsFr, c => c.Ignore())
                     .ForMember(i => i.BoardingInfo, c => c.Ignore())
                     .ForMember(i => i.BoardingInfoFr, c => c.Ignore())

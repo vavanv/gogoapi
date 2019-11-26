@@ -100,7 +100,7 @@ namespace GoGoApi.Controllers
                 {
                     const string allStopsUrl = "http://goapi.openmetrolinx.com/OpenDataAPI/api/V1/Stop/All";
                     const string allStopsDetailUrl = "http://goapi.openmetrolinx.com/OpenDataAPI/api/V1/Stop/Details/";
-                    string urlParameters = "?key=30020230";
+                    var urlParameters = "?key=30020230";
 
                     var client = new HttpClient {BaseAddress = new Uri(allStopsUrl)};
 
