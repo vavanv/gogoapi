@@ -102,13 +102,13 @@ namespace GoGoApi.Controllers
                     const string allStopsDetailUrl = "http://goapi.openmetrolinx.com/OpenDataAPI/api/V1/Stop/Details/";
                     var urlParameters = "?key=30020230";
 
-                    var client = new HttpClient {BaseAddress = new Uri(allStopsUrl)};
+                    var client = new HttpClient {BaseAddress = new Uri(allStopsUrl), Timeout = new TimeSpan(0, 0, 10, 0, 0) };
 
                     // Add an Accept header for JSON format.
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var clientDetail = new HttpClient {BaseAddress = new Uri(allStopsDetailUrl)};
+                    var clientDetail = new HttpClient {BaseAddress = new Uri(allStopsDetailUrl), Timeout = new TimeSpan(0, 0, 10, 0, 0) };
                     clientDetail.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
                     var response = client.GetAsync(urlParameters).Result;
