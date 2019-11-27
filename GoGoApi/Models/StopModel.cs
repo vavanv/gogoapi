@@ -18,7 +18,7 @@ namespace GoGoApi.Models
         public string DrivingDirections { get; set; }
 
         public List<FacilityModel> Facilities { get; set; }
-        //public List<ParkingModel> Parkings { get; set; }
+        public List<ParkingModel> Parkings { get; set; }
     }
 
     public class FacilityModel
