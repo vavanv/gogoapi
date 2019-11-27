@@ -18,10 +18,16 @@ namespace GoGoApi.Mappers
             var mapperConfiguration = new MapperConfiguration(configuration =>
             {
                 configuration.CreateMap<Stop, StopModel>();
-                configuration.CreateMap<FacilityModel, Facility>();
-                configuration.CreateMap<Facility, FacilityModel>();
+                configuration.CreateMap<FacilityModel, Facility>()
+                    .ForMember(i => i.Code, c => c.Ignore())
+                    .ForMember(i => i.DescriptionFr, c => c.Ignore());
+                configuration.CreateMap<Facility, FacilityModel>()
+;
                 configuration.CreateMap<Parking, ParkingModel>();
-                configuration.CreateMap<ParkingModel, Parking>();
+
+                configuration.CreateMap<ParkingModel, Parking>()
+                    .ForMember(i => i.NameFr, c => c.Ignore())
+                    .ForMember(i => i.Type, c => c.Ignore());
 
                 configuration.CreateMap<StopModel, Stop>()
                     .ForMember(i => i.Facilities, c => c.MapFrom(s => s.Facilities))

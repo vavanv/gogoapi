@@ -23,16 +23,12 @@ namespace GoGoApi.Models
 
     public class FacilityModel
     {
-        public string Code { get; set; }
         public string Description { get; set; }
-        public string DescriptionFr { get; set; }
     }
 
     public class ParkingModel
     {
         public string Name { get; set; }
-        public string NameFr { get; set; }
         public int ParkSpots { get; set; }
-        public string Type { get; set; }
     }
 }
