@@ -17,7 +17,7 @@ namespace GoGoApi.Models
         public string Intersection { get; set; }
         public string DrivingDirections { get; set; }
 
-        //public List<FacilityModel> Facilities { get; set; }
+        public List<FacilityModel> Facilities { get; set; }
         //public List<ParkingModel> Parkings { get; set; }
     }
 
