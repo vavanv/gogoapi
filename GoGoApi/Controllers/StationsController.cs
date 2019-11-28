@@ -18,6 +18,7 @@ using Services.Services.Stop;
 namespace GoGoApi.Controllers
 {
     [Produces("application/json")]
+    [ApiController]
     public class StationsController : ControllerBase
     {
         private readonly ICacheService _cacheService;
