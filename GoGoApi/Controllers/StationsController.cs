@@ -4,9 +4,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
+using Configuration;
+
 using GoGoApi.Mappers;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 using Newtonsoft.Json;
 
@@ -24,12 +27,17 @@ namespace GoGoApi.Controllers
         private readonly ICacheService _cacheService;
         private readonly IStopService _stopService;
         private readonly IStopDetailMapper _mapper;
-
-        public StationsController(ICacheService cacheService, IStopService stopService, IStopDetailMapper mapper)
+        private readonly IOptions<BaseUrlKey> _baseUrl;
+        private readonly IOptions<ActionUrl> _actionUrl;
+        private readonly IOptions<AccessKey> _accessKey;
+        public StationsController(ICacheService cacheService, IStopService stopService, IStopDetailMapper mapper, IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl, IOptions<AccessKey> accessKey)
         {
             _cacheService = cacheService;
             _stopService = stopService;
             _mapper = mapper;
+            _baseUrl = baseUrl;
+            _actionUrl = actionUrl;
+            _accessKey = accessKey;
         }
 
         [HttpGet("api/stop/list")]
@@ -99,9 +107,9 @@ namespace GoGoApi.Controllers
             {
                 try
                 {
-                    const string allStopsUrl = "http://goapi.openmetrolinx.com/OpenDataAPI/api/V1/Stop/All";
-                    const string allStopsDetailUrl = "http://goapi.openmetrolinx.com/OpenDataAPI/api/V1/Stop/Details/";
-                    var urlParameters = "?key=30020230";
+                    var allStopsUrl = $"{_baseUrl.Value.KeyValue}{_actionUrl.Value.StopAll}";
+                    var allStopsDetailUrl = $"{_baseUrl.Value.KeyValue}{_actionUrl.Value.StopDetails}";
+                    var urlParameters = _accessKey.Value.KeyValue;
 
                     var client = new HttpClient {BaseAddress = new Uri(allStopsUrl), Timeout = new TimeSpan(0, 0, 10, 0, 0) };
 

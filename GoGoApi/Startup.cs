@@ -33,6 +33,12 @@ namespace GoGoApi
 
             services.Configure<DbStringKey>(opt =>
                 _configuration.GetSection("DbStringKey").Bind(opt));
+            services.Configure<BaseUrlKey>(opt =>
+                _configuration.GetSection("BaseUrlKey").Bind(opt));
+            services.Configure<AccessKey>(opt =>
+                _configuration.GetSection("AccessKey").Bind(opt));
+            services.Configure<ActionUrl>(opt =>
+                _configuration.GetSection("ActionUrl").Bind(opt));
 
             services.AddCors(o => o.AddPolicy(CorsPolicy, builder =>
             {
