@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,8 +16,10 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 using Services.Models.AllStops;
+using Services.Models.Common;
 using Services.Models.StopDetail;
 using Services.Services.Cache;
+using Services.Services.Shape;
 using Services.Services.Stop;
 
 namespace GoGoApi.Controllers
@@ -26,14 +30,18 @@ namespace GoGoApi.Controllers
     {
         private readonly ICacheService _cacheService;
         private readonly IStopService _stopService;
+        private readonly IShapeService _shapeService;
         private readonly IStopDetailMapper _mapper;
         private readonly IOptions<BaseUrlKey> _baseUrl;
         private readonly IOptions<ActionUrl> _actionUrl;
         private readonly IOptions<AccessKey> _accessKey;
-        public StationsController(ICacheService cacheService, IStopService stopService, IStopDetailMapper mapper, IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl, IOptions<AccessKey> accessKey)
+
+        public StationsController(ICacheService cacheService, IStopService stopService, IShapeService shapeService, IStopDetailMapper mapper,
+            IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl, IOptions<AccessKey> accessKey)
         {
             _cacheService = cacheService;
             _stopService = stopService;
+            _shapeService = shapeService;
             _mapper = mapper;
             _baseUrl = baseUrl;
             _actionUrl = actionUrl;
@@ -99,6 +107,56 @@ namespace GoGoApi.Controllers
         //    return BadRequest(ModelState.ToDictionary(k => k.Key,
         //        k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         //}
+        [HttpGet("api/shapes")]
+        public IActionResult UpdateShapes()
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var data = GetData("D:\\GO\\GO_GTFS\\shapes.txt");
+                    _shapeService.UpdateShape(data);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("error", ex.Message);
+                }
+            }
+
+            return BadRequest(ModelState.ToDictionary(k => k.Key,
+                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
+        }
+
+        private List<MappingData> GetData(string filename)
+        {
+            var data = new List<MappingData>();
+            var numRow = 0;
+            var reader = new StreamReader(filename);
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    if (numRow == 0)
+                    {
+                        numRow = 1;
+                        continue;
+                    }
+
+                    var values = line.Split(',');
+                    data.Add(new MappingData
+                    {
+                        ShapeId = values[0],
+                        Lat = Convert.ToDecimal(values[1]),
+                        Lon = Convert.ToDecimal(values[2]),
+                        Sec = Convert.ToInt32(values[3])
+                    });
+                }
+            }
+
+            return data;
+        }
 
         [HttpGet("api/update")]
         public IActionResult UpdateData()
@@ -111,13 +169,15 @@ namespace GoGoApi.Controllers
                     var allStopsDetailUrl = $"{_baseUrl.Value.KeyValue}{_actionUrl.Value.StopDetails}";
                     var urlParameters = _accessKey.Value.KeyValue;
 
-                    var client = new HttpClient {BaseAddress = new Uri(allStopsUrl), Timeout = new TimeSpan(0, 0, 10, 0, 0) };
+                    var client = new HttpClient
+                        {BaseAddress = new Uri(allStopsUrl), Timeout = new TimeSpan(0, 0, 10, 0, 0)};
 
                     // Add an Accept header for JSON format.
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var clientDetail = new HttpClient {BaseAddress = new Uri(allStopsDetailUrl), Timeout = new TimeSpan(0, 0, 10, 0, 0) };
+                    var clientDetail = new HttpClient
+                        {BaseAddress = new Uri(allStopsDetailUrl), Timeout = new TimeSpan(0, 0, 10, 0, 0)};
                     clientDetail.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
                     var response = client.GetAsync(urlParameters).Result;

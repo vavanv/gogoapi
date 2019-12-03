@@ -30,6 +30,7 @@ namespace Services.DbContextFactory
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new CacheConfig());
+            modelBuilder.ApplyConfiguration(new ShapeConfig());
         }
     }
 }

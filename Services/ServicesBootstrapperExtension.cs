@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Services.DbContextFactory;
 using Services.Repository;
 using Services.Services.Cache;
+using Services.Services.Shape;
 using Services.Services.Stop;
 using Services.UnitOfWork;
 
@@ -19,6 +20,7 @@ namespace Services
         {
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<IStopService, StopService>();
+            services.AddScoped<IShapeService, ShapeService>();
 
             services.AddScoped<IGoGoContextFactory, GoGoContextFactory>();
 
