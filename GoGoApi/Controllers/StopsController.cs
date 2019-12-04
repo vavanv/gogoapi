@@ -16,10 +16,8 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 using Services.Models.AllStops;
-using Services.Models.Common;
 using Services.Models.StopDetail;
 using Services.Services.Cache;
-using Services.Services.Shape;
 using Services.Services.Stop;
 
 namespace GoGoApi.Controllers
@@ -30,19 +28,17 @@ namespace GoGoApi.Controllers
     {
         private readonly ICacheService _cacheService;
         private readonly IStopService _stopService;
-        private readonly IShapeService _shapeService;
         private readonly IStopDetailMapper _mapper;
         private readonly IOptions<BaseUrlKey> _baseUrl;
         private readonly IOptions<ActionUrl> _actionUrl;
         private readonly IOptions<AccessKey> _accessKey;
 
-        public StopsController(ICacheService cacheService, IStopService stopService, IShapeService shapeService,
+        public StopsController(ICacheService cacheService, IStopService stopService,
             IStopDetailMapper mapper,
             IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl, IOptions<AccessKey> accessKey)
         {
             _cacheService = cacheService;
             _stopService = stopService;
-            _shapeService = shapeService;
             _mapper = mapper;
             _baseUrl = baseUrl;
             _actionUrl = actionUrl;
