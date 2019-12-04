@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Services.Models.Common;
 using Services.Repository;
 using Services.UnitOfWork;
@@ -36,10 +35,16 @@ namespace Services.Services.Shape
                 {
                     _unitOfWork.SaveChanges();
                     count = 0;
-
                 }
             }
+
             _unitOfWork.SaveChanges();
+        }
+
+        public async Task<ICollection<Entities.Shape>> GetShapes()
+        {
+            var shapes = await _shapeRepository.All();
+            return shapes;
         }
     }
 }

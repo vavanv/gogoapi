@@ -14,6 +14,7 @@ namespace GoGoApi
             Microsoft.Extensions.Configuration.IConfiguration configuration)
         {
             services.AddScoped<IStopDetailMapper, StopDetailMapper>();
+            services.AddScoped<IShapeMapper, ShapeMapper>();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace GoGoApi.Controllers
 {
     [Produces("application/json")]
     [ApiController]
-    public class StationsController : ControllerBase
+    public class StopsController : ControllerBase
     {
         private readonly ICacheService _cacheService;
         private readonly IStopService _stopService;
@@ -36,7 +36,7 @@ namespace GoGoApi.Controllers
         private readonly IOptions<ActionUrl> _actionUrl;
         private readonly IOptions<AccessKey> _accessKey;
 
-        public StationsController(ICacheService cacheService, IStopService stopService, IShapeService shapeService,
+        public StopsController(ICacheService cacheService, IStopService stopService, IShapeService shapeService,
             IStopDetailMapper mapper,
             IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl, IOptions<AccessKey> accessKey)
         {
@@ -108,56 +108,6 @@ namespace GoGoApi.Controllers
         //    return BadRequest(ModelState.ToDictionary(k => k.Key,
         //        k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         //}
-        [HttpGet("api/shapes")]
-        public IActionResult UpdateShapes()
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var data = GetData("D:\\GO\\shapes.txt");
-                    _shapeService.UpdateShape(data);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("error", ex.Message);
-                }
-            }
-
-            return BadRequest(ModelState.ToDictionary(k => k.Key,
-                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
-        }
-
-        private List<MappingData> GetData(string filename)
-        {
-            var data = new List<MappingData>();
-            var numRow = 0;
-            var reader = new StreamReader(filename);
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                if (!string.IsNullOrWhiteSpace(line))
-                {
-                    if (numRow == 0)
-                    {
-                        numRow = 1;
-                        continue;
-                    }
-
-                    var values = line.Split(',');
-                    data.Add(new MappingData
-                    {
-                        ShapeId = values[0],
-                        Lat = Convert.ToDecimal(values[1]),
-                        Lon = Convert.ToDecimal(values[2]),
-                        Sec = Convert.ToInt32(values[3])
-                    });
-                }
-            }
-
-            return data;
-        }
 
         [HttpGet("api/update")]
         public IActionResult UpdateData()
