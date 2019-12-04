@@ -45,7 +45,8 @@ namespace GoGoApi.Controllers
                 try
                 {
                     var shapes = await _shapeService.GetShapes();
-                    return Ok(_mapper.MapFrom(shapes));
+                    return Ok(shapes);
+                    //return Ok(_mapper.MapFrom(shapes));
                 }
                 catch (Exception ex)
                 {
