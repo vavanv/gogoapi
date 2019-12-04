@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -140,7 +138,7 @@ namespace GoGoApi.Controllers
                             {
                                 var rb = responseDetail.Content.ReadAsStringAsync();
                                 var r = JsonConvert.DeserializeObject<StopDetail>(rb.Result);
-                                _cacheService.UpdateCache(r.Stop.Code, JsonConvert.SerializeObject(r.Stop));
+                                _cacheService.UpdateStopDetail(r.Stop.Code, JsonConvert.SerializeObject(r.Stop));
                             }
                         }
                     }

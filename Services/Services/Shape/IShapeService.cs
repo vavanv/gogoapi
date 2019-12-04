@@ -8,6 +8,6 @@ namespace Services.Services.Shape
     public interface IShapeService
     {
         Task<ICollection<Entities.Shape>> GetShapes();
-        void UpdateShape(List<MappingData> shapes);
+        void UpdateShape(string shapes);
     }
 }

@@ -46,5 +46,10 @@ namespace Services.Services.Shape
             var shapes = await _shapeRepository.All();
             return shapes;
         }
+
+        public void UpdateShape(string shapes)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

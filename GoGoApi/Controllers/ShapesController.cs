@@ -29,11 +29,13 @@ namespace GoGoApi.Controllers
     public class ShapesController : ControllerBase
     {
         private readonly IShapeService _shapeService;
+        private readonly ICacheService _cacheService;
         private readonly IShapeMapper _mapper;
 
-        public ShapesController(IShapeService shapeService,IShapeMapper mapper)
+        public ShapesController(IShapeService shapeService, ICacheService cacheService, IShapeMapper mapper)
         {
             _shapeService = shapeService;
+            _cacheService = cacheService;
             _mapper = mapper;
         }
 
@@ -66,7 +68,8 @@ namespace GoGoApi.Controllers
                 try
                 {
                     var data = GetData("D:\\GO\\shapes.txt");
-                    _shapeService.UpdateShape(data);
+                    var dataToDb = JsonConvert.SerializeObject(data);
+                    _cacheService.UpdateShapes(dataToDb);
                     return Ok();
                 }
                 catch (Exception ex)
