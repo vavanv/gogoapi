@@ -36,7 +36,8 @@ namespace GoGoApi.Controllers
         private readonly IOptions<ActionUrl> _actionUrl;
         private readonly IOptions<AccessKey> _accessKey;
 
-        public StationsController(ICacheService cacheService, IStopService stopService, IShapeService shapeService, IStopDetailMapper mapper,
+        public StationsController(ICacheService cacheService, IStopService stopService, IShapeService shapeService,
+            IStopDetailMapper mapper,
             IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl, IOptions<AccessKey> accessKey)
         {
             _cacheService = cacheService;
@@ -114,7 +115,7 @@ namespace GoGoApi.Controllers
             {
                 try
                 {
-                    var data = GetData("D:\\GO\\GO_GTFS\\shapes.txt");
+                    var data = GetData("D:\\GO\\shapes.txt");
                     _shapeService.UpdateShape(data);
                     return Ok();
                 }

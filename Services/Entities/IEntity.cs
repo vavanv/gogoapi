@@ -4,6 +4,6 @@ namespace Services.Entities
 {
     public interface IEntity
     {
-        int Id { get; }
+        long Id { get; }
     }
 }

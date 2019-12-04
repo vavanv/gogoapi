@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Services.Models.Common;
 using Services.Repository;
 using Services.UnitOfWork;
@@ -19,6 +20,7 @@ namespace Services.Services.Shape
 
         public void UpdateShape(List<MappingData> shapes)
         {
+            var count = 0;
             foreach (var s in shapes)
             {
                 var shape = new Entities.Shape
@@ -29,8 +31,15 @@ namespace Services.Services.Shape
                     Sec = s.Sec
                 };
                 _shapeRepository.Update(shape);
-                _unitOfWork.SaveChanges();
+                count += 1;
+                if (count == 1000)
+                {
+                    _unitOfWork.SaveChanges();
+                    count = 0;
+
+                }
             }
+            _unitOfWork.SaveChanges();
         }
     }
 }
