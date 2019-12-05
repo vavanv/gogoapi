@@ -2,25 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-
-using Configuration;
 
 using GoGoApi.Mappers;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 using Newtonsoft.Json;
 
-using Services.Models.AllStops;
 using Services.Models.Common;
-using Services.Models.StopDetail;
 using Services.Services.Cache;
 using Services.Services.Shape;
-using Services.Services.Stop;
 
 namespace GoGoApi.Controllers
 {
@@ -48,7 +40,6 @@ namespace GoGoApi.Controllers
                 {
                     var shapes = await _shapeService.GetShapes();
                     return Ok(shapes);
-                    //return Ok(_mapper.MapFrom(shapes));
                 }
                 catch (Exception ex)
                 {

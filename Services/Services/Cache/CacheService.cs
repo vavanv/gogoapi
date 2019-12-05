@@ -18,8 +18,6 @@ namespace Services.Services.Cache
             _unitOfWork = unitOfWork;
         }
 
-
-
         public void UpdateStopDetail(string code, string stop)
         {
             var typeId = (int)DataType.StopDetail;

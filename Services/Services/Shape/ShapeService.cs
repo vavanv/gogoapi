@@ -1,55 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Services.Models.Common;
+using Newtonsoft.Json;
+using Services.Models;
+using Services.Models.ViewModels;
 using Services.Repository;
-using Services.UnitOfWork;
+using Services.Services.Common;
 
 namespace Services.Services.Shape
 {
     internal sealed class ShapeService : IShapeService
     {
-        private readonly IRepository<Entities.Shape> _shapeRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Entities.Cache> _cacheRepository;
 
-        public ShapeService(IRepository<Entities.Shape> shapeRepository, IUnitOfWork unitOfWork)
+        public ShapeService(IRepository<Entities.Cache> cacheRepository)
         {
-            _shapeRepository = shapeRepository;
-            _unitOfWork = unitOfWork;
+            _cacheRepository = cacheRepository;
         }
 
-        public void UpdateShape(List<MappingData> shapes)
+        public async Task<ICollection<ShapeModel>> GetShapes()
         {
-            var count = 0;
-            foreach (var s in shapes)
+            var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.Shapes);
+            var shapes = new List<ShapeModel>();
+
+            foreach (var c in cache)
             {
-                var shape = new Entities.Shape
-                {
-                    ShapeId = s.ShapeId,
-                    Lat = s.Lat,
-                    Lon = s.Lon,
-                    Sec = s.Sec
-                };
-                _shapeRepository.Update(shape);
-                count += 1;
-                if (count == 1000)
-                {
-                    _unitOfWork.SaveChanges();
-                    count = 0;
-                }
+                shapes.AddRange(JsonConvert.DeserializeObject<List<ShapeModel>>(c.Data));
             }
 
-            _unitOfWork.SaveChanges();
-        }
-
-        public async Task<ICollection<Entities.Shape>> GetShapes()
-        {
-            var shapes = await _shapeRepository.All();
             return shapes;
-        }
-
-        public void UpdateShape(string shapes)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

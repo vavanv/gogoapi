@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Services.Models.Common;
-using Services.Services.Common;
 
 namespace Services.Services.Cache
 {

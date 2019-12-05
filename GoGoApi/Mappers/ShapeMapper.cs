@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 
 using AutoMapper;
-
-using GoGoApi.Models;
 using Services.Entities;
+using Services.Models.ViewModels;
 
 namespace GoGoApi.Mappers
 {

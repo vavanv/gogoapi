@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using GoGoApi.Models;
-
+using Services.Models;
 using Services.Models.StopDetail;
+using Services.Models.ViewModels;
 
 namespace GoGoApi.Mappers
 {

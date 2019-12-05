@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GoGoApi.Models
+﻿namespace Services.Models.ViewModels
 {
     public class ShapeModel
     {

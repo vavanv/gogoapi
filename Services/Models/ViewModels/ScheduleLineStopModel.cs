@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace GoGoApi.Models
+namespace Services.Models.ViewModels
 {
     public class ScheduleLineStopModel
     {
