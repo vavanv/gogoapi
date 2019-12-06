@@ -59,8 +59,7 @@ namespace GoGoApi.Controllers
                 try
                 {
                     var data = GetData("D:\\GO\\shapes.txt");
-                    var dataToDb = JsonConvert.SerializeObject(data);
-                    _cacheService.UpdateShapes(dataToDb);
+                    _shapeService.UpdateShapes(data);
                     return Ok();
                 }
                 catch (Exception ex)
