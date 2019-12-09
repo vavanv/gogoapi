@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Services.Models.Common
 {
-    public class MappingData
+    public class ShapesMappingData
     {
         public string ShapeId { get; set; }
         public decimal Lat { get; set; }

@@ -12,22 +12,21 @@ using Newtonsoft.Json;
 
 using Services.Models.Common;
 using Services.Services.Cache;
+using Services.Services.Route;
 using Services.Services.Shape;
 
 namespace GoGoApi.Controllers
 {
     [Produces("application/json")]
     [ApiController]
-    public class ShapesController : ControllerBase
+    public class RoutesControlle : ControllerBase
     {
-        private readonly IShapeService _shapeService;
-        private readonly ICacheService _cacheService;
+        private readonly IRouteService _routeService;
         private readonly IShapeMapper _mapper;
 
-        public ShapesController(IShapeService shapeService, ICacheService cacheService, IShapeMapper mapper)
+        public RoutesControlle(IRouteService routeService, IShapeMapper mapper)
         {
-            _shapeService = shapeService;
-            _cacheService = cacheService;
+            _routeService = routeService;
             _mapper = mapper;
         }
 
@@ -38,7 +37,7 @@ namespace GoGoApi.Controllers
             {
                 try
                 {
-                    var shapes = await _shapeService.GetShapes();
+                    var shapes = await _routeService.GetRoutes();
                     return Ok(shapes);
                 }
                 catch (Exception ex)
@@ -52,14 +51,14 @@ namespace GoGoApi.Controllers
         }
 
         [HttpGet("api/shapes")]
-        public IActionResult UpdateShapes()
+        public IActionResult UpdateRoutes()
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var data = GetData("D:\\GO\\shapes.txt");
-                    _shapeService.UpdateShapes(data);
+                    var data = GetData("D:\\GO\\routes.txt");
+                    _routeService.UpdateRoutes(data);
                     return Ok();
                 }
                 catch (Exception ex)
@@ -72,9 +71,9 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        private List<ShapesMappingData> GetData(string filename)
+        private List<RoutesMappingData> GetData(string filename)
         {
-            var data = new List<ShapesMappingData>();
+            var data = new List<RoutesMappingData>();
             var numRow = 0;
             using (var reader = new StreamReader(filename))
             {
@@ -90,12 +89,15 @@ namespace GoGoApi.Controllers
                         }
 
                         var values = line.Split(',');
-                        data.Add(new ShapesMappingData
+                        data.Add(new RoutesMappingData
                         {
-                            ShapeId = values[0],
-                            Lat = Convert.ToDecimal(values[1]),
-                            Lon = Convert.ToDecimal(values[2]),
-                            Sec = Convert.ToInt32(values[3])
+                            RouteId = values[0],
+                            AgencyId = values[1],
+                            ShotName = values[2],
+                            LongName = values[3],
+                            Type = Convert.ToInt32(values[4]),
+                            Color = values[5],
+                            TextColor = values[6]
                         });
                     }
                 }
