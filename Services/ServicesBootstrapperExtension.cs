@@ -11,6 +11,7 @@ using Services.Services.Cache;
 using Services.Services.Route;
 using Services.Services.Shape;
 using Services.Services.Stop;
+using Services.Services.Trip;
 using Services.UnitOfWork;
 
 namespace Services
@@ -23,6 +24,7 @@ namespace Services
             services.AddScoped<IStopService, StopService>();
             services.AddScoped<IShapeService, ShapeService>();
             services.AddScoped<IRouteService, RouteService>();
+            services.AddScoped<ITripService, TripService>();
 
             services.AddScoped<IGoGoContextFactory, GoGoContextFactory>();
 

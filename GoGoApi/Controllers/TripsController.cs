@@ -15,30 +15,31 @@ using Services.Models.Common;
 using Services.Services.Cache;
 using Services.Services.Route;
 using Services.Services.Shape;
+using Services.Services.Trip;
 
 namespace GoGoApi.Controllers
 {
     [Produces("application/json")]
     [ApiController]
-    public class RoutesControlle : ControllerBase
+    public class TripsController : ControllerBase
     {
-        private readonly IRouteService _routeService;
+        private readonly ITripService _tripService;
         private readonly IShapeMapper _mapper;
 
-        public RoutesControlle(IRouteService routeService, IShapeMapper mapper)
+        public TripsController(ITripService tripService, IShapeMapper mapper)
         {
-            _routeService = routeService;
+            _tripService = tripService;
             _mapper = mapper;
         }
 
-        [HttpGet("api/routes/list")]
-        public async Task<IActionResult> GetShapeList()
+        [HttpGet("api/trips/list")]
+        public async Task<IActionResult> GetTripList()
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var shapes = await _routeService.GetRoutes();
+                    var shapes = await _tripService.GetTrips();
                     return Ok(shapes);
                 }
                 catch (Exception ex)
@@ -51,15 +52,15 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        [HttpGet("api/routes")]
-        public IActionResult UpdateRoutes()
+        [HttpGet("api/trips")]
+        public IActionResult UpdateTrips()
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var data = GetData("D:\\GO\\routes.txt");
-                    _routeService.UpdateRoutes(data);
+                    var data = GetData("D:\\GO\\trips.txt");
+                    _tripService.UpdateTrips(data);
                     return Ok();
                 }
                 catch (Exception ex)
@@ -72,9 +73,9 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        private List<RoutesMappingData> GetData(string filename)
+        private List<TripsMappingData> GetData(string filename)
         {
-            var data = new List<RoutesMappingData>();
+            var data = new List<TripsMappingData>();
             var numRow = 0;
             using (var reader = new StreamReader(filename))
             {
@@ -90,15 +91,19 @@ namespace GoGoApi.Controllers
                         }
 
                         var values = line.Split(',');
-                        data.Add(new RoutesMappingData
+                        data.Add(new TripsMappingData
                         {
-                            RouteId = values[0],
-                            AgencyId = values[1],
-                            ShotName = values[2],
-                            LongName = values[3],
-                            Type = Convert.ToInt32(values[4]),
-                            Color = values[5],
-                            TextColor = values[6]
+                            RouteId=values[0],
+                            ServiceId = values[1],
+                            TripId = values[2],
+                            HeadSign = values[3],
+                            ShortName = values[4],
+                            DirectionId = values[5],
+                            BlockId = values[6],
+                            ShapeId = values[7],
+                            WheelchairAccessible = Convert.ToBoolean(values[8]),
+                            BikesAllowed = Convert.ToBoolean(values[9]),
+                            Variant = values[10]
                         });
                     }
                 }

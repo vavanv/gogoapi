@@ -17,6 +17,7 @@ using Services.Models.AllStops;
 using Services.Models.StopDetail;
 using Services.Services.Cache;
 using Services.Services.Stop;
+using Services.Services.Trip;
 
 namespace GoGoApi.Controllers
 {

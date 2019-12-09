@@ -22,7 +22,7 @@ namespace Services.Entities
     {
         public void Configure(EntityTypeBuilder<Route> entity)
         {
-            entity.ToTable("Shapes");
+            entity.ToTable("Routes");
 
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
