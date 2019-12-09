@@ -101,8 +101,8 @@ namespace GoGoApi.Controllers
                             DirectionId = values[5],
                             BlockId = values[6],
                             ShapeId = values[7],
-                            WheelchairAccessible = Convert.ToBoolean(values[8]),
-                            BikesAllowed = Convert.ToBoolean(values[9]),
+                            WheelchairAccessible = values[8] == "1",
+                            BikesAllowed = values[9]=="1",
                             Variant = values[10]
                         });
                     }

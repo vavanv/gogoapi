@@ -32,6 +32,7 @@ namespace Services.DbContextFactory
             modelBuilder.ApplyConfiguration(new CacheConfig());
             modelBuilder.ApplyConfiguration(new ShapeConfig());
             modelBuilder.ApplyConfiguration(new RouteConfig());
+            modelBuilder.ApplyConfiguration(new TripConfig());
         }
     }
 }
