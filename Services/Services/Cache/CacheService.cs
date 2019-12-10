@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Services.Models.Common;
 using Services.Repository;
 using Services.Services.Common;
@@ -16,6 +18,18 @@ namespace Services.Services.Cache
         {
             _cacheRepository = cacheRepository;
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<ICollection<Models.StopDetail.Stop>> GetStops()
+        {
+            var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
+            var stops = new List<Models.StopDetail.Stop>();
+            foreach (var c in cache)
+            {
+                stops.Add(JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data));
+            }
+
+            return stops;
         }
 
         public void UpdateStopDetail(string code, string stop)

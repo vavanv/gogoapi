@@ -3,63 +3,58 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-
+using Services.Models.Common;
 using Services.Repository;
 using Services.Services.Common;
+using Services.UnitOfWork;
 
 namespace Services.Services.Stop
 {
     internal sealed class StopService : IStopService
     {
-        private readonly IRepository<Entities.Cache> _cacheRepository;
+        private readonly IRepository<Entities.Stop> _stopRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public StopService(IRepository<Entities.Cache> cacheRepository)
+        public StopService(IRepository<Entities.Stop> stopRepository, IUnitOfWork unitOfWork)
         {
-            _cacheRepository = cacheRepository;
+            _stopRepository = stopRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<ICollection<Models.StopDetail.Stop>> GetStops()
+        public async Task<ICollection<Entities.Stop>> GetStops()
         {
-            var cache = await _cacheRepository.FindAll(t => t.Type == (int) DataType.StopDetail);
-            var stops = new List<Models.StopDetail.Stop>();
-            foreach (var c in cache)
-            {
-                stops.Add(JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data));
-            }
-
+            var stops = await _stopRepository.All();
             return stops;
         }
 
-        public async Task<ICollection<Models.StopDetail.Stop>> GetBusStops()
+        public void UpdateStops(List<StopsMappingData> stops)
         {
-            var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
-            var stops = new List<Models.StopDetail.Stop>();
-            foreach (var c in cache)
+            var count = 0;
+            foreach (var s in stops)
             {
-                var o = JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data);
-                if (o.IsBus)
+                var stop = new Entities.Stop
                 {
-                    stops.Add(o);
+                    StopId = s.StopId,
+                    Name = s.Name,
+                    Latitude = s.Latitude,
+                    Longitude = s.Longitude,
+                    ZoneId = s.ZoneId,
+                    Url = s.Url,
+                    Type = s.Type,
+                    ParentStation = s.ParentStation,
+                    WheelchairBoarding = s.WheelchairBoarding,
+                    Code = s.Code
+                };
+                _stopRepository.Update(stop);
+                count += 1;
+                if (count == 10000)
+                {
+                    _unitOfWork.SaveChanges();
+                    count = 0;
                 }
             }
 
-            return stops;
-        }
-
-        public async Task<ICollection<Models.StopDetail.Stop>> GetTrainStops()
-        {
-            var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
-            var stops = new List<Models.StopDetail.Stop>();
-            foreach (var c in cache)
-            {
-                var o = JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data);
-                if (o.IsTrain)
-                {
-                    stops.Add(o);
-                }
-            }
-
-            return stops;
+            _unitOfWork.SaveChanges();
         }
     }
 }
