@@ -10,6 +10,11 @@ namespace Services.DbContextFactory
     {
         private readonly string _connectionStringKey;
 
+        public virtual DbSet<Route> Routes { get; set; }
+        public virtual DbSet<Shape> Shapes { get; set; }
+        public virtual DbSet<Stop> Stops { get; set; }
+        public virtual DbSet<Trip> Trips  { get; set; }
+
         public GoGoDbContext(string connectionString)
         {
             _connectionStringKey = connectionString;
