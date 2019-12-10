@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Services.Models.Common
 {
-    public class TripsMappingData
+    public class TripsMappingData: IMappingData
     {
         public string RouteId { get; set; }
         public string ServiceId { get; set; }

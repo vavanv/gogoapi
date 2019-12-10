@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Services.Models.Common
 {
-    public class StopsMappingData
+    public class StopsMappingData: IMappingData
     {
         public string StopId { get; set; }
         public string Name { get; set; }
