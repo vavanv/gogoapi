@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Services.Models;
@@ -31,21 +32,22 @@ namespace Services.Services.Route
             return routes;
         }
 
-        public async void GetRoutesForDropDown()
+        public async Task<ICollection<RoutesForDropDown>> GetRoutesForDropDown()
         {
             var routes = await _routeRepository.FindAll(r => r.Type == 2);
-            var trips = await _tripRepository.All();
-            var rr = (from r in routes
+            var trips =  await _tripRepository.All();
+            var result = (from r in routes
                 join t in trips on r.RouteId equals t.RouteId
-                select new
+                select new RoutesForDropDown
                 {
-                    Id = t.Id,
-                    ShorName = r.ShortName, 
+                    ShortName = r.ShortName, 
                     LongName = r.LongName, 
                     Color = r.Color, 
                     HeadSign = t.HeadSign,
                     ShapeId = t.ShapeId
                 }).Distinct().ToList();
+
+            return result;
         }
 
         //select distinct t.id, r.ShortName, r.LongName, r.Color, t.HeadSign, t.ShapeId from Routes r

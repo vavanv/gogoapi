@@ -51,6 +51,26 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
+        [HttpGet("api/routes/dropdown")]
+        public async Task<IActionResult> GetRoutesForDropDown()
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var shapes = await _routeService.GetRoutesForDropDown();
+                    return Ok(shapes);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("error", ex.Message);
+                }
+            }
+
+            return BadRequest(ModelState.ToDictionary(k => k.Key,
+                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
+        }
+
         [HttpGet("api/routes")]
         public IActionResult UpdateRoutes()
         {

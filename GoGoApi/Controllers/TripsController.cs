@@ -98,7 +98,7 @@ namespace GoGoApi.Controllers
                             TripId = values[2],
                             HeadSign = values[3],
                             ShortName = values[4],
-                            DirectionId = values[5],
+                            DirectionId =Convert.ToInt32(values[5]),
                             BlockId = values[6],
                             ShapeId = values[7],
                             WheelchairAccessible = values[8] == "1",

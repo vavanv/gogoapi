@@ -11,7 +11,7 @@ namespace Services.Models.Common
         public string TripId { get; set; }
         public string HeadSign { get; set; }
         public string ShortName { get; set; }
-        public string DirectionId { get; set; }
+        public int DirectionId { get; set; }
         public string BlockId { get; set; }
         public string ShapeId { get; set; }
         public bool WheelchairAccessible { get; set; }
