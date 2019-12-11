@@ -15,7 +15,6 @@ namespace GoGoApi
         {
             services.AddScoped<IStopDetailMapper, StopDetailMapper>();
             services.AddScoped<IShapeMapper, ShapeMapper>();
-            services.AddTransient<ICreateDataFactory, CreateDataFactory>();
         }
     }
 }

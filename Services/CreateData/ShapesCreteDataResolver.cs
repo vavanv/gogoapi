@@ -10,7 +10,7 @@ namespace Services.CreateData
     {
         public List<IMappingData> BuildData(string file)
         {
-            var list = new List<ShapesMappingData>();
+            var list = new System.Collections.Generic.List<IMappingData>();
             var numRow = 0;
             using (var reader = new StreamReader(file))
             {

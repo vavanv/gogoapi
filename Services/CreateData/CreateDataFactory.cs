@@ -6,12 +6,11 @@ namespace Services.CreateData
 {
     internal class CreateDataFactory: ICreateDataFactory
     {
-
         public ICreteDataResolver Create(MappingDataType type)
         {
             if (type == MappingDataType.Shapes)
             {
-                return new ShapesCreteDataResolver(new List<IMappingData>());
+                return new ShapesCreteDataResolver();
             }
             //else if (type == MappingDataType.Routes)
             //{

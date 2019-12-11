@@ -56,8 +56,8 @@ namespace GoGoApi.Controllers
             {
                 try
                 {
-                    var data = GetData("D:\\GO\\shapes.txt");
-                    //var data =_createDataFactory.Create(MappingDataType.Shapes).BuildData("D:\\GO\\shapes.txt");
+                    //var data = GetData("D:\\GO\\shapes.txt");
+                    var data =_createDataFactory.Create(MappingDataType.Shapes).BuildData("D:\\GO\\shapes.txt");
                     _shapeService.UpdateShapes(data);
                     return Ok();
                 }
