@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Services.Models.Common;
+using Services.CreateData;
 
 namespace GoGoApi.CreateData
 {
@@ -10,9 +11,9 @@ namespace GoGoApi.CreateData
     {
         private readonly IMappingData _mappingData;
 
-        public CreateDataFactory(string file)
+        public CreateDataFactory(MappingDataType type, string file)
         {
-            if (file == "routes.txt")
+            if (type == MappingDataType.Routes)
             {
                 _mappingData = new RoutesMappingData();
             }
