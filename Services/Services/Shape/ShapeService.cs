@@ -42,7 +42,7 @@ namespace Services.Services.Shape
             return shapes;
         }
 
-        public void UpdateShapes(List<ShapesMappingData> shapes)
+        public void UpdateShapes(List<IMappingData> shapes)
         {
             var count = 0;
             foreach (var s in shapes)

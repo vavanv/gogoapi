@@ -1,9 +1,10 @@
-﻿using Services.Models.Common;
+﻿using Services.CreateData;
+using Services.Models.Common;
 
 namespace GoGoApi.CreateData
 {
-    internal interface ICreateDataFactory
+    public interface ICreateDataFactory
     {
-        IMappingData Create();
+        ICreteDataResolver Create(MappingDataType type);
     }
 }

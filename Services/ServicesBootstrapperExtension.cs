@@ -1,10 +1,10 @@
 ﻿using System;
 
 using Framework.Dependency;
-
+using GoGoApi.CreateData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Services.CreateData;
 using Services.DbContextFactory;
 using Services.Repository;
 using Services.Services.Cache;
@@ -25,6 +25,8 @@ namespace Services
             services.AddScoped<IShapeService, ShapeService>();
             services.AddScoped<IRouteService, RouteService>();
             services.AddScoped<ITripService, TripService>();
+
+            services.AddScoped<ICreateDataFactory, CreateDataFactory>();
 
             services.AddScoped<IGoGoContextFactory, GoGoContextFactory>();
 

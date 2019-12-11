@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using GoGoApi.CreateData;
 using GoGoApi.Mappers;
 
 using Microsoft.AspNetCore.Mvc;
 
 using Newtonsoft.Json;
-
+using Services.CreateData;
 using Services.Models.Common;
 using Services.Services.Cache;
 using Services.Services.Shape;
@@ -21,14 +21,12 @@ namespace GoGoApi.Controllers
     public class ShapesController : ControllerBase
     {
         private readonly IShapeService _shapeService;
-        private readonly ICacheService _cacheService;
-        private readonly IShapeMapper _mapper;
+        private readonly ICreateDataFactory _createDataFactory;
 
-        public ShapesController(IShapeService shapeService, ICacheService cacheService, IShapeMapper mapper)
+        public ShapesController(IShapeService shapeService, ICreateDataFactory createDataFactory)
         {
             _shapeService = shapeService;
-            _cacheService = cacheService;
-            _mapper = mapper;
+            _createDataFactory = createDataFactory;
         }
 
         [HttpGet("api/shapes/list")]
@@ -59,6 +57,7 @@ namespace GoGoApi.Controllers
                 try
                 {
                     var data = GetData("D:\\GO\\shapes.txt");
+                    //var data =_createDataFactory.Create(MappingDataType.Shapes).BuildData("D:\\GO\\shapes.txt");
                     _shapeService.UpdateShapes(data);
                     return Ok();
                 }

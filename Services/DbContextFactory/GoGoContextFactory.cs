@@ -16,7 +16,6 @@ namespace Services.DbContextFactory
             _context = new GoGoDbContext(connectionStringKey.Value.KeyValue);
         }
 
-
         public DbContext Create()
         {
             return _context;

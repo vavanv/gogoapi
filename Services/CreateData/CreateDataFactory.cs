@@ -1,29 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using GoGoApi.CreateData;
 using Services.Models.Common;
-using Services.CreateData;
 
-namespace GoGoApi.CreateData
+namespace Services.CreateData
 {
     internal class CreateDataFactory: ICreateDataFactory
     {
-        private readonly IMappingData _mappingData;
 
-        public CreateDataFactory(MappingDataType type, string file)
+        public ICreteDataResolver Create(MappingDataType type)
         {
-            if (type == MappingDataType.Routes)
+            if (type == MappingDataType.Shapes)
             {
-                _mappingData = new RoutesMappingData();
+                return new ShapesCreteDataResolver(new List<IMappingData>());
             }
-            _mappingData = null;
-        }
+            //else if (type == MappingDataType.Routes)
+            //{
+            //    _mappingData = new RoutesMappingData();
+            //}
+            //else if (type == MappingDataType.Stops)
+            //{
+            //    _mappingData = new StopsMappingData();
+            //}
+            //else if (type == MappingDataType.Trips)
+            //{
+            //    _mappingData = new TripsMappingData();
+            //}
+       
+            //return _mappingData;
+            return null;
 
-
-        public IMappingData Create()
-        {
-            return _mappingData;
         }
     }
 }
