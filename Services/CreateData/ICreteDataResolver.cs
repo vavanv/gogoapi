@@ -7,6 +7,6 @@ namespace Services.CreateData
 {
     public interface ICreteDataResolver
     {
-        List<IMappingData> BuildData(string file);
+        IList<IMappingData> BuildData(string file);
     }
 }
