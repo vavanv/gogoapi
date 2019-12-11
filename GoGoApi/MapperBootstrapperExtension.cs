@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Framework.Dependency;
-
+using GoGoApi.CreateData;
 using GoGoApi.Mappers;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +15,7 @@ namespace GoGoApi
         {
             services.AddScoped<IStopDetailMapper, StopDetailMapper>();
             services.AddScoped<IShapeMapper, ShapeMapper>();
+            services.AddTransient<ICreateDataFactory, CreateDataFactory>();
         }
     }
 }

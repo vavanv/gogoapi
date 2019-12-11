@@ -6,6 +6,6 @@ namespace Services.DbContextFactory
 {
     public interface IGoGoContextFactory
     {
-        DbContext GetContext();
+        DbContext Create();
     }
 }

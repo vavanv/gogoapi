@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Services.Models;
 using Services.Models.Common;
@@ -57,6 +58,8 @@ namespace Services.Services.Route
 
         public void UpdateRoutes(List<RoutesMappingData> routes)
         {
+            var tableName = "routes";
+            _unitOfWork.Context.Database.ExecuteSqlInterpolated($"TRUNCATE TABLE {tableName}");
             var count = 0;
             foreach (var r in routes)
             {

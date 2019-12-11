@@ -17,7 +17,7 @@ namespace Services.DbContextFactory
         }
 
 
-        public DbContext GetContext()
+        public DbContext Create()
         {
             return _context;
         }
