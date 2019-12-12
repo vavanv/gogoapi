@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Services.Models;
+
 using Services.Models.Common;
 using Services.Models.ViewModels;
 using Services.Repository;
-using Services.Services.Common;
-using Services.Services.Route;
 using Services.UnitOfWork;
 
 namespace Services.Services.Route
@@ -19,7 +16,8 @@ namespace Services.Services.Route
         private readonly IRepository<Entities.Trip> _tripRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RouteService(IRepository<Entities.Route> routeRepository, IRepository<Entities.Trip> tripRepository, IUnitOfWork unitOfWork)
+        public RouteService(IRepository<Entities.Route> routeRepository, IRepository<Entities.Trip> tripRepository,
+            IUnitOfWork unitOfWork)
         {
             _routeRepository = routeRepository;
             _tripRepository = tripRepository;
@@ -35,19 +33,21 @@ namespace Services.Services.Route
         public async Task<ICollection<RoutesForDropDown>> GetRoutesForDropDown()
         {
             var routes = await _routeRepository.FindAll(r => r.Type == 2);
-            var trips =  await _tripRepository.All();
+            var routeIds = routes.Select(r => r.RouteId);
+            var trips = await _tripRepository.FindAll(t => routeIds.Contains(t.RouteId));
             var result = (from r in routes
                 join t in trips on r.RouteId equals t.RouteId
                 select new RoutesForDropDown
                 {
-                    ShortName = r.ShortName, 
-                    LongName = r.LongName, 
-                    Color = r.Color, 
+                    Key = r.ShortName + t.ShapeId,
+                    ShortName = r.ShortName,
+                    LongName = r.LongName,
+                    Color = r.Color,
                     HeadSign = t.HeadSign,
                     ShapeId = t.ShapeId
-                }).Distinct().ToList();
+                });
 
-            return result;
+            return result.Distinct(new ItemEqualityComparer()).ToList();
         }
 
         //select distinct t.id, r.ShortName, r.LongName, r.Color, t.HeadSign, t.ShapeId from Routes r
@@ -63,9 +63,9 @@ namespace Services.Services.Route
                 var route = new Entities.Route
                 {
                     RouteId = r.RouteId,
-                    AgencyId =  r.AgencyId,
+                    AgencyId = r.AgencyId,
                     ShortName = r.ShotName,
-                    LongName =  r.LongName,
+                    LongName = r.LongName,
                     Type = r.Type,
                     Color = r.Color,
                     TextColor = r.TextColor
@@ -80,6 +80,20 @@ namespace Services.Services.Route
             }
 
             _unitOfWork.SaveChanges();
+        }
+    }
+
+    class ItemEqualityComparer : IEqualityComparer<RoutesForDropDown>
+    {
+        public bool Equals(RoutesForDropDown x, RoutesForDropDown y)
+        {
+            // Two items are equal if their keys are equal.
+            return x.Key == y.Key;
+        }
+
+        public int GetHashCode(RoutesForDropDown obj)
+        {
+            return obj.Key.GetHashCode();
         }
     }
 }

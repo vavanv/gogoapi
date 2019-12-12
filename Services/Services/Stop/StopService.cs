@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json;
 using Services.Models.Common;
 using Services.Repository;
-using Services.Services.Common;
 using Services.UnitOfWork;
 
 namespace Services.Services.Stop

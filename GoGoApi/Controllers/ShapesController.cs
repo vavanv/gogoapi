@@ -4,14 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-using GoGoApi.Mappers;
-
 using Microsoft.AspNetCore.Mvc;
 
-using Newtonsoft.Json;
-
 using Services.Models.Common;
-using Services.Services.Cache;
 using Services.Services.Shape;
 
 namespace GoGoApi.Controllers
@@ -21,14 +16,10 @@ namespace GoGoApi.Controllers
     public class ShapesController : ControllerBase
     {
         private readonly IShapeService _shapeService;
-        private readonly ICacheService _cacheService;
-        private readonly IShapeMapper _mapper;
 
-        public ShapesController(IShapeService shapeService, ICacheService cacheService, IShapeMapper mapper)
+        public ShapesController(IShapeService shapeService)
         {
             _shapeService = shapeService;
-            _cacheService = cacheService;
-            _mapper = mapper;
         }
 
         [HttpGet("api/shapes/list")]

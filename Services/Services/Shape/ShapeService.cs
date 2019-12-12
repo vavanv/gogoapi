@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Services.Models;
+
 using Services.Models.Common;
-using Services.Models.ViewModels;
 using Services.Repository;
-using Services.Services.Common;
 using Services.UnitOfWork;
 
 namespace Services.Services.Shape
@@ -16,7 +14,8 @@ namespace Services.Services.Shape
         private readonly IRepository<Entities.Shape> _shapeRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ShapeService(IRepository<Entities.Cache> cacheRepository, IRepository<Entities.Shape> shapeRepository, IUnitOfWork unitOfWork)
+        public ShapeService(IRepository<Entities.Cache> cacheRepository, IRepository<Entities.Shape> shapeRepository,
+            IUnitOfWork unitOfWork)
         {
             _cacheRepository = cacheRepository;
             _shapeRepository = shapeRepository;

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,7 +14,6 @@ namespace Services.Entities
         public int Type { get; set; }
         public string Color { get; set; }
         public string TextColor { get; set; }
-
     }
 
     public class RouteConfig : IEntityTypeConfiguration<Route>

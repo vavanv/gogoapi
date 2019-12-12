@@ -2,25 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using Configuration;
-
-using GoGoApi.Mappers;
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
-using Newtonsoft.Json;
-
-using Services.Models.AllStops;
 using Services.Models.Common;
-using Services.Models.StopDetail;
-using Services.Services.Cache;
 using Services.Services.Stop;
-using Services.Services.Trip;
 
 namespace GoGoApi.Controllers
 {
@@ -30,7 +17,7 @@ namespace GoGoApi.Controllers
     {
         private readonly IStopService _stopService;
 
-        public StopsController(IStopService stopService )
+        public StopsController(IStopService stopService)
         {
             _stopService = stopService;
         }

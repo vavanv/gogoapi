@@ -1,34 +1,25 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-using GoGoApi.Mappers;
-
 using Microsoft.AspNetCore.Mvc;
 
-using Newtonsoft.Json;
-
 using Services.Models.Common;
-using Services.Services.Cache;
 using Services.Services.Route;
-using Services.Services.Shape;
 
 namespace GoGoApi.Controllers
 {
     [Produces("application/json")]
     [ApiController]
-    public class RoutesControlle : ControllerBase
+    public class RoutesController : ControllerBase
     {
         private readonly IRouteService _routeService;
-        private readonly IShapeMapper _mapper;
 
-        public RoutesControlle(IRouteService routeService, IShapeMapper mapper)
+        public RoutesController(IRouteService routeService)
         {
             _routeService = routeService;
-            _mapper = mapper;
         }
 
         [HttpGet("api/routes/list")]

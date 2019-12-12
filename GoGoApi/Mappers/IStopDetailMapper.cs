@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Services.Models;
+
 using Services.Models.StopDetail;
 using Services.Models.ViewModels;
 

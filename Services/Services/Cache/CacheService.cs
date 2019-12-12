@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Newtonsoft.Json;
-using Services.Models.Common;
+
 using Services.Repository;
 using Services.Services.Common;
 using Services.UnitOfWork;
@@ -22,7 +23,7 @@ namespace Services.Services.Cache
 
         public async Task<ICollection<Models.StopDetail.Stop>> GetStops()
         {
-            var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.StopDetail);
+            var cache = await _cacheRepository.FindAll(t => t.Type == (int) DataType.StopDetail);
             var stops = new List<Models.StopDetail.Stop>();
             foreach (var c in cache)
             {
@@ -34,7 +35,7 @@ namespace Services.Services.Cache
 
         public void UpdateStopDetail(string code, string stop)
         {
-            var typeId = (int)DataType.StopDetail;
+            var typeId = (int) DataType.StopDetail;
             var cache = _cacheRepository.FindOneSync(c => c.Code == code && c.Type == typeId);
 
             if (cache == null)
@@ -52,12 +53,12 @@ namespace Services.Services.Cache
 
         public void UpdateShapes(string shapes)
         {
-            var typeId = (int)DataType.Shapes;
+            var typeId = (int) DataType.Shapes;
             var cache = _cacheRepository.FindOneSync(c => c.Type == typeId);
 
             if (cache == null)
             {
-                cache = new Entities.Cache { Type = typeId, Data = shapes };
+                cache = new Entities.Cache {Type = typeId, Data = shapes};
             }
             else
             {

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Services.Models.Common
 {
-    public class TripsMappingData: IMappingData
+    public class TripsMappingData : IMappingData
     {
         public string RouteId { get; set; }
         public string ServiceId { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace Services.Models.ViewModels
+﻿using System;
+
+namespace Services.Models.ViewModels
 {
     public class ShapeModel
     {
