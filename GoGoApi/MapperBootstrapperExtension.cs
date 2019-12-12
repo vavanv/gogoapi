@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Framework.Dependency;
-
+using GoGoApi.CreateData;
 using GoGoApi.Mappers;
 
 using Microsoft.Extensions.DependencyInjection;

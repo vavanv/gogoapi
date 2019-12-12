@@ -13,7 +13,7 @@ namespace Services.UnitOfWork
 
         public UnitOfWork(IGoGoContextFactory contextFactory)
         {
-            Context = contextFactory.GetContext();
+            Context = contextFactory.Create();
         }
 
         public void SaveChangesAsync()
