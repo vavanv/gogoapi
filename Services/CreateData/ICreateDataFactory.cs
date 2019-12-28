@@ -1,7 +1,6 @@
-﻿using Services.CreateData;
-using Services.Models.Common;
+﻿using System;
 
-namespace GoGoApi.CreateData
+namespace Services.CreateData
 {
     public interface ICreateDataFactory
     {

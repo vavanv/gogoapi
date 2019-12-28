@@ -34,6 +34,9 @@ namespace Services.Repository
         Task<ICollection<TEntity>> FindAll(Expression<Func<TEntity, bool>> predicate,
             Expression<Func<TEntity, string>> inOrderBy);
 
+        Task<ICollection<TEntity>> FindAll(Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, int>> inOrderBy);
+
         Task<int> Count();
 
         Task<int> Count(Expression<Func<TEntity, bool>> predicate);

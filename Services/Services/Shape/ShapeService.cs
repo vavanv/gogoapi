@@ -10,30 +10,15 @@ namespace Services.Services.Shape
 {
     internal sealed class ShapeService : IShapeService
     {
-        private readonly IRepository<Entities.Cache> _cacheRepository;
         private readonly IRepository<Entities.Shape> _shapeRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ShapeService(IRepository<Entities.Cache> cacheRepository, IRepository<Entities.Shape> shapeRepository,
+        public ShapeService(IRepository<Entities.Shape> shapeRepository,
             IUnitOfWork unitOfWork)
         {
-            _cacheRepository = cacheRepository;
             _shapeRepository = shapeRepository;
             _unitOfWork = unitOfWork;
         }
-
-        //public async Task<ICollection<ShapeModel>> GetShapes()
-        //{
-        //    var cache = await _cacheRepository.FindAll(t => t.Type == (int)DataType.Shapes);
-        //    var shapes = new List<ShapeModel>();
-
-        //    foreach (var c in cache)
-        //    {
-        //        shapes.AddRange(JsonConvert.DeserializeObject<List<ShapeModel>>(c.Data));
-        //    }
-
-        //    return shapes;
-        //}
 
         public async Task<ICollection<Entities.Shape>> GetShapes()
         {
@@ -41,10 +26,16 @@ namespace Services.Services.Shape
             return shapes;
         }
 
-        public void UpdateShapes(List<ShapesMappingData> shapes)
+        public async Task<ICollection<Entities.Shape>> GetShapesByShapeId(string shapeId)
+        {
+            var shapes = await _shapeRepository.FindAll(s => s.ShapeId == shapeId, o => o.Sec);
+            return shapes;
+        }
+
+        public void UpdateShapes(List<dynamic> shapes)
         {
             var count = 0;
-            foreach (var s in shapes)
+            foreach (ShapesMappingData s in shapes)
             {
                 var shape = new Entities.Shape
                 {

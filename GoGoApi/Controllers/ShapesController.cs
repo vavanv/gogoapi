@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
+using Services.CreateData;
 using Services.Models.Common;
 using Services.Services.Shape;
 
@@ -16,10 +17,12 @@ namespace GoGoApi.Controllers
     public class ShapesController : ControllerBase
     {
         private readonly IShapeService _shapeService;
+        private readonly ICreateDataFactory _createDataFactory;
 
-        public ShapesController(IShapeService shapeService)
+        public ShapesController(IShapeService shapeService, ICreateDataFactory createDataFactory)
         {
             _shapeService = shapeService;
+            _createDataFactory = createDataFactory;
         }
 
         [HttpGet("api/shapes/list")]
@@ -42,16 +45,15 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        [HttpGet("api/shapes")]
-        public IActionResult UpdateShapes()
+        [HttpGet("api/shapes/{shapeId}")]
+        public async Task<IActionResult> GetShapeListByShapeId(string shapeId)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var data = GetData("D:\\GO\\shapes.txt");
-                    _shapeService.UpdateShapes(data);
-                    return Ok();
+                    var shapes = await _shapeService.GetShapesByShapeId(shapeId);
+                    return Ok(shapes);
                 }
                 catch (Exception ex)
                 {
@@ -63,36 +65,25 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        private List<ShapesMappingData> GetData(string filename)
+        [HttpGet("api/shapes")]
+        public IActionResult UpdateShapes()
         {
-            var data = new List<ShapesMappingData>();
-            var numRow = 0;
-            using (var reader = new StreamReader(filename))
+            if (ModelState.IsValid)
             {
-                while (!reader.EndOfStream)
+                try
                 {
-                    var line = reader.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        if (numRow == 0)
-                        {
-                            numRow = 1;
-                            continue;
-                        }
-
-                        var values = line.Split(',');
-                        data.Add(new ShapesMappingData
-                        {
-                            ShapeId = values[0],
-                            Lat = Convert.ToDecimal(values[1]),
-                            Lon = Convert.ToDecimal(values[2]),
-                            Sec = Convert.ToInt32(values[3])
-                        });
-                    }
+                    var data = _createDataFactory.Create(MappingDataType.Shapes).BuildData("D:\\GO\\shapes.txt");
+                    _shapeService.UpdateShapes(data);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("error", ex.Message);
                 }
             }
 
-            return data;
+            return BadRequest(ModelState.ToDictionary(k => k.Key,
+                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
     }
 }

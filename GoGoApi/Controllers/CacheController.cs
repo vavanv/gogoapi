@@ -39,7 +39,7 @@ namespace GoGoApi.Controllers
             _accessKey = accessKey;
         }
 
-        [HttpGet("api/stop/list")]
+        [HttpGet("api/cache/stop/list")]
         public async Task<IActionResult> GetStopList()
         {
             if (ModelState.IsValid)

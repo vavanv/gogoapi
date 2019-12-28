@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+
 using Services.Models.Common;
 
 namespace Services.CreateData
 {
-    internal class ShapesCreteDataResolver: ICreteDataResolver
+    internal class ShapesCreteDataResolver : ICreteDataResolver
     {
-        public IList<IMappingData> BuildData(string file)
+        public List<dynamic> BuildData(string file)
         {
-            var list = new List<IMappingData>();
+            var list = new List<dynamic>();
             var numRow = 0;
             using (var reader = new StreamReader(file))
             {

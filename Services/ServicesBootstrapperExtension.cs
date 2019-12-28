@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Framework.Dependency;
-using GoGoApi.CreateData;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.CreateData;

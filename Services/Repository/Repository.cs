@@ -76,6 +76,12 @@ namespace Services.Repository
             return await _context.Set<TEntity>().Where(predicate).AsNoTracking().OrderBy(orderBy).ToListAsync();
         }
 
+        public virtual async Task<ICollection<TEntity>> FindAll(Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, int>> orderBy)
+        {
+            return await _context.Set<TEntity>().Where(predicate).AsNoTracking().OrderBy(orderBy).ToListAsync();
+        }
+
         public virtual async Task<int> Count()
         {
             return await _context.Set<TEntity>().AsNoTracking().CountAsync();

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using GoGoApi.CreateData;
-using Services.Models.Common;
+﻿using System;
 
 namespace Services.CreateData
 {
-    internal class CreateDataFactory: ICreateDataFactory
+    internal class CreateDataFactory : ICreateDataFactory
     {
         public ICreteDataResolver Create(MappingDataType type)
         {
@@ -24,10 +22,9 @@ namespace Services.CreateData
             //{
             //    _mappingData = new TripsMappingData();
             //}
-       
+
             //return _mappingData;
             return null;
-
         }
     }
 }

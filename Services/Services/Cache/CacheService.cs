@@ -35,7 +35,7 @@ namespace Services.Services.Cache
 
         public void UpdateStopDetail(string code, string stop)
         {
-            var typeId = (int) DataType.StopDetail;
+            const int typeId = (int) DataType.StopDetail;
             var cache = _cacheRepository.FindOneSync(c => c.Code == code && c.Type == typeId);
 
             if (cache == null)
@@ -53,7 +53,7 @@ namespace Services.Services.Cache
 
         public void UpdateShapes(string shapes)
         {
-            var typeId = (int) DataType.Shapes;
+            const int typeId = (int) DataType.Shapes;
             var cache = _cacheRepository.FindOneSync(c => c.Type == typeId);
 
             if (cache == null)
