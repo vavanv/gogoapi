@@ -32,32 +32,32 @@ namespace Services.Services.Shape
         //Order By s.ShapeId, s.Sec
         public async Task<ICollection<Entities.Shape>> GetTrainShapes()
         {
-            var routes = await _routeRepository.FindAll(r => r.Type == 2);
-            var routeIds = routes.Select(r => r.RouteId);
-            var trips = await _tripRepository.FindAll(t => routeIds.Contains(t.RouteId));
+            var routes = await _routeRepository.FindAll(route => route.Type == 2);
+            var routeIds = routes.Select(route => route.RouteId);
+            var trips = await _tripRepository.FindAll(trip => routeIds.Contains(trip.RouteId));
             var shapesIds = trips.Select(s => s.ShapeId).Distinct();
 
-            var shapes = await _shapeRepository.FindAll(s => shapesIds.Contains(s.ShapeId));
-            return shapes.Distinct().OrderBy(x => x.ShapeId).ThenBy(x => x.Sec).ToList();
+            var shapes = await _shapeRepository.FindAll(shape => shapesIds.Contains(shape.ShapeId));
+            return shapes.Distinct().OrderBy(order => order.ShapeId).ThenBy(order => order.Sec).ToList();
         }
 
         public async Task<ICollection<Entities.Shape>> GetShapesByShapeId(string shapeId)
         {
-            var shapes = await _shapeRepository.FindAll(s => s.ShapeId == shapeId, o => o.Sec);
+            var shapes = await _shapeRepository.FindAll(shape => shape.ShapeId == shapeId, order => order.Sec);
             return shapes;
         }
 
         public void UpdateShapes(List<dynamic> shapes)
         {
             var count = 0;
-            foreach (ShapesMappingData s in shapes)
+            foreach (ShapesMappingData mapping in shapes)
             {
                 var shape = new Entities.Shape
                 {
-                    ShapeId = s.ShapeId,
-                    Lat = s.Lat,
-                    Lon = s.Lon,
-                    Sec = s.Sec
+                    ShapeId = mapping.ShapeId,
+                    Lat = mapping.Lat,
+                    Lon = mapping.Lon,
+                    Sec = mapping.Sec
                 };
                 _shapeRepository.Update(shape);
                 count += 1;

@@ -32,19 +32,19 @@ namespace Services.Services.Route
 
         public async Task<ICollection<RoutesForDropDown>> GetRoutesForDropDown()
         {
-            var routes = await _routeRepository.FindAll(r => r.Type == 2);
-            var routeIds = routes.Select(r => r.RouteId);
-            var trips = await _tripRepository.FindAll(t => routeIds.Contains(t.RouteId));
-            var result = (from r in routes
-                join t in trips on r.RouteId equals t.RouteId
+            var routes = await _routeRepository.FindAll(route => route.Type == 2);
+            var routeIds = routes.Select(route => route.RouteId);
+            var trips = await _tripRepository.FindAll(trip => routeIds.Contains(trip.RouteId));
+            var result = (from route in routes
+                join trip in trips on route.RouteId equals trip.RouteId
                 select new RoutesForDropDown
                 {
-                    Key = r.ShortName + t.ShapeId,
-                    ShortName = r.ShortName,
-                    LongName = r.LongName,
-                    Color = r.Color,
-                    HeadSign = t.HeadSign,
-                    ShapeId = t.ShapeId
+                    Key = route.ShortName + trip.ShapeId,
+                    ShortName = route.ShortName,
+                    LongName = route.LongName,
+                    Color = route.Color,
+                    HeadSign = trip.HeadSign,
+                    ShapeId = trip.ShapeId
                 });
 
             return result.Distinct(new ItemEqualityComparer()).ToList();
@@ -58,19 +58,19 @@ namespace Services.Services.Route
         public void UpdateRoutes(List<RoutesMappingData> routes)
         {
             var count = 0;
-            foreach (var r in routes)
+            foreach (var route in routes)
             {
-                var route = new Entities.Route
+                var entity = new Entities.Route
                 {
-                    RouteId = r.RouteId,
-                    AgencyId = r.AgencyId,
-                    ShortName = r.ShotName,
-                    LongName = r.LongName,
-                    Type = r.Type,
-                    Color = r.Color,
-                    TextColor = r.TextColor
+                    RouteId = route.RouteId,
+                    AgencyId = route.AgencyId,
+                    ShortName = route.ShotName,
+                    LongName = route.LongName,
+                    Type = route.Type,
+                    Color = route.Color,
+                    TextColor = route.TextColor
                 };
-                _routeRepository.Update(route);
+                _routeRepository.Update(entity);
                 count += 1;
                 if (count == 10000)
                 {
@@ -88,7 +88,7 @@ namespace Services.Services.Route
         public bool Equals(RoutesForDropDown x, RoutesForDropDown y)
         {
             // Two items are equal if their keys are equal.
-            return x.Key == y.Key;
+            return y != null && x != null && x.Key == y.Key;
         }
 
         public int GetHashCode(RoutesForDropDown obj)
