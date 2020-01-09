@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Services.Models.Common;
@@ -11,19 +12,33 @@ namespace Services.Services.Shape
     internal sealed class ShapeService : IShapeService
     {
         private readonly IRepository<Entities.Shape> _shapeRepository;
+        private readonly IRepository<Entities.Route> _routeRepository;
+        private readonly IRepository<Entities.Trip> _tripRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ShapeService(IRepository<Entities.Shape> shapeRepository,
+        public ShapeService(IRepository<Entities.Shape> shapeRepository, IRepository<Entities.Route> routeRepository, IRepository<Entities.Trip> tripRepository,
             IUnitOfWork unitOfWork)
         {
             _shapeRepository = shapeRepository;
+            _routeRepository = routeRepository;
+            _tripRepository = tripRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ICollection<Entities.Shape>> GetShapes()
+        //select DISTINCT s.Id, s.ShapeId, s.Lon, s.Lat, s.Sec from Routes r
+        //inner join Trips t on t.RouteId = r.RouteId
+        //    inner join Shapes s on s.ShapeId = t.ShapeId
+        //    where r.Type= 2
+        //Order By s.ShapeId, s.Sec
+        public async Task<ICollection<Entities.Shape>> GetTrainShapes()
         {
-            var shapes = await _shapeRepository.All();
-            return shapes;
+            var routes = await _routeRepository.FindAll(r => r.Type == 2);
+            var routeIds = routes.Select(r => r.RouteId);
+            var trips = await _tripRepository.FindAll(t => routeIds.Contains(t.RouteId));
+            var shapesIds = trips.Select(s => s.ShapeId).Distinct();
+
+            var shapes = await _shapeRepository.FindAll(s => shapesIds.Contains(s.ShapeId));
+            return shapes.Distinct().OrderBy(x => x.ShapeId).ThenBy(x => x.Sec).ToList();
         }
 
         public async Task<ICollection<Entities.Shape>> GetShapesByShapeId(string shapeId)

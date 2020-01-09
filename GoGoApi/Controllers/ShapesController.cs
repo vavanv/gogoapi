@@ -25,14 +25,14 @@ namespace GoGoApi.Controllers
             _createDataFactory = createDataFactory;
         }
 
-        [HttpGet("api/shapes/list")]
+        [HttpGet("api/shapes/trains/list")]
         public async Task<IActionResult> GetShapeList()
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var shapes = await _shapeService.GetShapes();
+                    var shapes = await _shapeService.GetTrainShapes();
                     return Ok(shapes);
                 }
                 catch (Exception ex)
