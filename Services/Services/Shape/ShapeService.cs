@@ -16,7 +16,8 @@ namespace Services.Services.Shape
         private readonly IRepository<Entities.Trip> _tripRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ShapeService(IRepository<Entities.Shape> shapeRepository, IRepository<Entities.Route> routeRepository, IRepository<Entities.Trip> tripRepository,
+        public ShapeService(IRepository<Entities.Shape> shapeRepository, IRepository<Entities.Route> routeRepository,
+            IRepository<Entities.Trip> tripRepository,
             IUnitOfWork unitOfWork)
         {
             _shapeRepository = shapeRepository;
