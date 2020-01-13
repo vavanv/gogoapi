@@ -62,60 +62,60 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        [HttpGet("api/routes")]
-        public IActionResult UpdateRoutes()
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var data = GetData("D:\\GO\\routes.txt");
-                    _routeService.UpdateRoutes(data);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("error", ex.Message);
-                }
-            }
+        //[HttpGet("api/routes")]
+        //public IActionResult UpdateRoutes()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            var data = GetData("D:\\GO\\routes.txt");
+        //            _routeService.UpdateRoutes(data);
+        //            return Ok();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("error", ex.Message);
+        //        }
+        //    }
 
-            return BadRequest(ModelState.ToDictionary(k => k.Key,
-                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
-        }
+        //    return BadRequest(ModelState.ToDictionary(k => k.Key,
+        //        k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
+        //}
 
-        private List<RoutesMappingData> GetData(string filename)
-        {
-            var data = new List<RoutesMappingData>();
-            var numRow = 0;
-            using (var reader = new StreamReader(filename))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        if (numRow == 0)
-                        {
-                            numRow = 1;
-                            continue;
-                        }
+        //private List<RoutesMappingData> GetData(string filename)
+        //{
+        //    var data = new List<RoutesMappingData>();
+        //    var numRow = 0;
+        //    using (var reader = new StreamReader(filename))
+        //    {
+        //        while (!reader.EndOfStream)
+        //        {
+        //            var line = reader.ReadLine();
+        //            if (!string.IsNullOrWhiteSpace(line))
+        //            {
+        //                if (numRow == 0)
+        //                {
+        //                    numRow = 1;
+        //                    continue;
+        //                }
 
-                        var values = line.Split(',');
-                        data.Add(new RoutesMappingData
-                        {
-                            RouteId = values[0],
-                            AgencyId = values[1],
-                            ShotName = values[2],
-                            LongName = values[3],
-                            Type = Convert.ToInt32(values[4]),
-                            Color = values[5],
-                            TextColor = values[6]
-                        });
-                    }
-                }
-            }
+        //                var values = line.Split(',');
+        //                data.Add(new RoutesMappingData
+        //                {
+        //                    RouteId = values[0],
+        //                    AgencyId = values[1],
+        //                    ShotName = values[2],
+        //                    LongName = values[3],
+        //                    Type = Convert.ToInt32(values[4]),
+        //                    Color = values[5],
+        //                    TextColor = values[6]
+        //                });
+        //            }
+        //        }
+        //    }
 
-            return data;
-        }
+        //    return data;
+        //}
     }
 }

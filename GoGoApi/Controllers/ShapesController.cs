@@ -65,25 +65,25 @@ namespace GoGoApi.Controllers
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
         }
 
-        [HttpGet("api/shapes")]
-        public IActionResult UpdateShapes()
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var data = _createDataFactory.Create(MappingDataType.Shapes).BuildData("D:\\GO\\shapes.txt");
-                    _shapeService.UpdateShapes(data);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("error", ex.Message);
-                }
-            }
+        //[HttpGet("api/shapes")]
+        //public IActionResult UpdateShapes()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            var data = _createDataFactory.Create(MappingDataType.Shapes).BuildData("D:\\GO\\shapes.txt");
+        //            _shapeService.UpdateShapes(data);
+        //            return Ok();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("error", ex.Message);
+        //        }
+        //    }
 
-            return BadRequest(ModelState.ToDictionary(k => k.Key,
-                k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
-        }
+        //    return BadRequest(ModelState.ToDictionary(k => k.Key,
+        //        k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
+        //}
     }
 }
