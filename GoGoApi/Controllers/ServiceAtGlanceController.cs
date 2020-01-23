@@ -34,7 +34,7 @@ namespace GoGoApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("api/service/trains")]
+        [HttpGet("api/service/trip/trains")]
         public IActionResult GetServiceTrains()
         {
             if (ModelState.IsValid)
@@ -56,11 +56,6 @@ namespace GoGoApi.Controllers
                     {
                         var responseBody = response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<ServiceTrains>(responseBody.Result);
-                        //foreach (var t in result.Trips)
-                        //{
-
-                        //}
-                        //return Ok(_mapper.MapFrom(result));
                         return Ok(result.Trips);
                     }
 
