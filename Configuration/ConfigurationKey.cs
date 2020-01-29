@@ -22,5 +22,6 @@ namespace Configuration
         public string StopAll { get; set; }
         public string StopDetails { get; set; }
         public string TrainsServiceAtGlance { get; set; }
+        public string ScheduleLineTrains { get; set; }
     }
 }
