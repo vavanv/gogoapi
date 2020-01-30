@@ -16,6 +16,7 @@ namespace GoGoApi
             services.AddScoped<IStopDetailMapper, StopDetailMapper>();
             services.AddScoped<IServiceTripsMapper, ServiceTripsMapper>();
             services.AddScoped<IShapeMapper, ShapeMapper>();
+            services.AddScoped<IScheduleMapper, ScheduleMapper>();
         }
     }
 }

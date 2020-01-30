@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Configuration;
+using GoGoApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Services.Models.ScheduleTrain;
-using Services.Models.ServiceTrains;
 
 namespace GoGoApi.Controllers
 {
@@ -18,12 +16,14 @@ namespace GoGoApi.Controllers
         private readonly IOptions<BaseUrlKey> _baseUrl;
         private readonly IOptions<AccessKey> _accessKey;
         private readonly IOptions<ActionUrl> _actionUrl;
+        private readonly IScheduleMapper _mapper;
 
-        public ScheduleController(IOptions<BaseUrlKey> baseUrl, IOptions<AccessKey> accessKey, IOptions<ActionUrl> actionUrl)
+        public ScheduleController(IOptions<BaseUrlKey> baseUrl, IOptions<AccessKey> accessKey, IOptions<ActionUrl> actionUrl, IScheduleMapper mapper)
         {
             _baseUrl = baseUrl;
             _accessKey = accessKey;
             _actionUrl = actionUrl;
+            _mapper = mapper;
         }
 
         [HttpGet("api/schedule/line/trains")]
@@ -51,7 +51,8 @@ namespace GoGoApi.Controllers
                     {
                         var responseBody = response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<ScheduleTrains>(responseBody.Result);
-                        return Ok(result.AllLines);
+                        var res = result.AllLines.Line.Where(l => l.IsTrain.Equals(true));
+                        return Ok(_mapper.MapFrom(res));
                     }
 
                     ModelState.AddModelError("error", response.StatusCode.ToString());

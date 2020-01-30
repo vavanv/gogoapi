@@ -37,5 +37,4 @@ namespace Services.Models.ScheduleTrain
     {
         public List<Line> Line { get; set; }
     }
-
 }

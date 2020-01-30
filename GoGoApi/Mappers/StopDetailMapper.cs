@@ -20,8 +20,7 @@ namespace GoGoApi.Mappers
                 configuration.CreateMap<FacilityModel, Facility>()
                     .ForMember(i => i.Code, c => c.Ignore())
                     .ForMember(i => i.DescriptionFr, c => c.Ignore());
-                configuration.CreateMap<Facility, FacilityModel>()
-                    ;
+                configuration.CreateMap<Facility, FacilityModel>();
                 configuration.CreateMap<Parking, ParkingModel>();
 
                 configuration.CreateMap<ParkingModel, Parking>()
