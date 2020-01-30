@@ -33,7 +33,7 @@ namespace Services.Services.Shape
         //Order By s.ShapeId, s.Sec
         public async Task<ICollection<Entities.Shape>> GetTrainShapes()
         {
-            var routes = await _routeRepository.FindAll(route => route.Type == 2);
+            var routes = await _routeRepository.FindAll(route => route.Type.Equals(2));
             var routeIds = routes.Select(route => route.RouteId);
             var trips = await _tripRepository.FindAll(trip => routeIds.Contains(trip.RouteId));
             var shapesIds = trips.Select(s => s.ShapeId).Distinct();

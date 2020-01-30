@@ -32,7 +32,7 @@ namespace Services.Services.Route
 
         public async Task<ICollection<RoutesForDropDown>> GetRoutesForDropDown()
         {
-            var routes = await _routeRepository.FindAll(route => route.Type == 2);
+            var routes = await _routeRepository.FindAll(route => route.Type.Equals(2));
             var routeIds = routes.Select(route => route.RouteId);
             var trips = await _tripRepository.FindAll(trip => routeIds.Contains(trip.RouteId));
             var result = (from route in routes

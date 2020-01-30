@@ -23,7 +23,7 @@ namespace Services.Services.Cache
 
         public async Task<ICollection<Models.StopDetail.Stop>> GetStops()
         {
-            var cache = await _cacheRepository.FindAll(t => t.Type == (int) DataType.StopDetail);
+            var cache = await _cacheRepository.FindAll(t => t.Type.Equals((int) DataType.StopDetail));
             var stops = new List<Models.StopDetail.Stop>();
             foreach (var c in cache)
             {
@@ -36,7 +36,7 @@ namespace Services.Services.Cache
         public void UpdateStopDetail(string code, string stop)
         {
             const int typeId = (int) DataType.StopDetail;
-            var cache = _cacheRepository.FindOneSync(c => c.Code == code && c.Type == typeId);
+            var cache = _cacheRepository.FindOneSync(c => c.Code.Equals(code) && c.Type.Equals(typeId));
 
             if (cache == null)
             {
@@ -54,7 +54,7 @@ namespace Services.Services.Cache
         public void UpdateShapes(string shapes)
         {
             const int typeId = (int) DataType.Shapes;
-            var cache = _cacheRepository.FindOneSync(c => c.Type == typeId);
+            var cache = _cacheRepository.FindOneSync(c => c.Type.Equals(typeId));
 
             if (cache == null)
             {
