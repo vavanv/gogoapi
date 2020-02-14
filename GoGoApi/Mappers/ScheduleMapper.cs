@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using AutoMapper;
+
 using Services.Models.ScheduleTrain;
 using Services.Models.ViewModels;
 
@@ -22,10 +24,11 @@ namespace GoGoApi.Mappers
                 configuration.CreateMap<Variant, VariantModel>();
             });
 
-        mapperConfiguration.AssertConfigurationIsValid();
+            mapperConfiguration.AssertConfigurationIsValid();
 
-        _mapper = mapperConfiguration.CreateMapper();
+            _mapper = mapperConfiguration.CreateMapper();
         }
+
         public IEnumerable<LineModel> MapFrom(IEnumerable<Line> entities)
         {
             return _mapper.Map<List<LineModel>>(entities);
