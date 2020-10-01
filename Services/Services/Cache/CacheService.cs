@@ -25,10 +25,7 @@ namespace Services.Services.Cache
         {
             var cache = await _cacheRepository.FindAll(t => t.Type.Equals((int) DataType.StopDetail));
             var stops = new List<Models.StopDetail.Stop>();
-            foreach (var c in cache)
-            {
-                stops.Add(JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data));
-            }
+            foreach (var c in cache) stops.Add(JsonConvert.DeserializeObject<Models.StopDetail.Stop>(c.Data));
 
             return stops;
         }
@@ -39,13 +36,9 @@ namespace Services.Services.Cache
             var cache = _cacheRepository.FindOneSync(c => c.Code.Equals(code) && c.Type.Equals(typeId));
 
             if (cache == null)
-            {
                 cache = new Entities.Cache {Type = (int) DataType.StopDetail, Code = code, Data = stop};
-            }
             else
-            {
                 cache.Data = stop;
-            }
 
             _cacheRepository.Update(cache);
             _unitOfWork.SaveChanges();
@@ -57,13 +50,9 @@ namespace Services.Services.Cache
             var cache = _cacheRepository.FindOneSync(c => c.Type.Equals(typeId));
 
             if (cache == null)
-            {
                 cache = new Entities.Cache {Type = typeId, Data = shapes};
-            }
             else
-            {
                 cache.Data = shapes;
-            }
 
             _cacheRepository.Update(cache);
             _unitOfWork.SaveChanges();

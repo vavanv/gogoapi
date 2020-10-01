@@ -9,12 +9,19 @@ namespace Services.UnitOfWork
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private bool _disposed;
-        public DbContext Context { get; }
 
         public UnitOfWork(IGoGoContextFactory contextFactory)
         {
             Context = contextFactory.Create();
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public DbContext Context { get; }
 
         public void SaveChangesAsync()
         {
@@ -30,20 +37,10 @@ namespace Services.UnitOfWork
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
-            {
                 if (disposing)
-                {
                     Context.Dispose();
-                }
-            }
 
             _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

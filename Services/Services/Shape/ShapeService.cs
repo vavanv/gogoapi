@@ -11,8 +11,8 @@ namespace Services.Services.Shape
 {
     internal sealed class ShapeService : IShapeService
     {
-        private readonly IRepository<Entities.Shape> _shapeRepository;
         private readonly IRepository<Entities.Route> _routeRepository;
+        private readonly IRepository<Entities.Shape> _shapeRepository;
         private readonly IRepository<Entities.Trip> _tripRepository;
         private readonly IUnitOfWork _unitOfWork;
 

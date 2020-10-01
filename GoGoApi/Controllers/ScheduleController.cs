@@ -18,9 +18,9 @@ namespace GoGoApi.Controllers
 {
     public class ScheduleController : Controller
     {
-        private readonly IOptions<BaseUrlKey> _baseUrl;
         private readonly IOptions<AccessKey> _accessKey;
         private readonly IOptions<ActionUrl> _actionUrl;
+        private readonly IOptions<BaseUrlKey> _baseUrl;
         private readonly IScheduleMapper _mapper;
 
         public ScheduleController(IOptions<BaseUrlKey> baseUrl, IOptions<AccessKey> accessKey,
@@ -36,7 +36,6 @@ namespace GoGoApi.Controllers
         public IActionResult GetServiceTrains()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var today = DateTime.Now.Year +
@@ -67,7 +66,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));

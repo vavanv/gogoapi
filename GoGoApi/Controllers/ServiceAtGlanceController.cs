@@ -20,9 +20,9 @@ namespace GoGoApi.Controllers
     [ApiController]
     public class ServiceAtGlanceController : Controller
     {
-        private readonly IOptions<BaseUrlKey> _baseUrl;
-        private readonly IOptions<ActionUrl> _actionUrl;
         private readonly IOptions<AccessKey> _accessKey;
+        private readonly IOptions<ActionUrl> _actionUrl;
+        private readonly IOptions<BaseUrlKey> _baseUrl;
         private readonly IServiceTripsMapper _mapper;
 
         public ServiceAtGlanceController(IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl,
@@ -38,7 +38,6 @@ namespace GoGoApi.Controllers
         public IActionResult GetServiceTrains()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var trainsService = $"{_baseUrl.Value.KeyValue}{_actionUrl.Value.TrainsServiceAtGlance}";
@@ -65,7 +64,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));

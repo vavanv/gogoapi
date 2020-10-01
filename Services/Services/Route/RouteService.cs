@@ -35,7 +35,7 @@ namespace Services.Services.Route
             var routes = await _routeRepository.FindAll(route => route.Type.Equals(2));
             var routeIds = routes.Select(route => route.RouteId);
             var trips = await _tripRepository.FindAll(trip => routeIds.Contains(trip.RouteId));
-            var result = (from route in routes
+            var result = from route in routes
                 join trip in trips on route.RouteId equals trip.RouteId
                 select new RoutesForDropDown
                 {
@@ -45,7 +45,7 @@ namespace Services.Services.Route
                     Color = route.Color,
                     HeadSign = trip.HeadSign,
                     ShapeId = trip.ShapeId
-                });
+                };
 
             return result.Distinct(new ItemEqualityComparer()).ToList();
         }
@@ -83,7 +83,7 @@ namespace Services.Services.Route
         }
     }
 
-    class ItemEqualityComparer : IEqualityComparer<RoutesForDropDown>
+    internal class ItemEqualityComparer : IEqualityComparer<RoutesForDropDown>
     {
         public bool Equals(RoutesForDropDown x, RoutesForDropDown y)
         {

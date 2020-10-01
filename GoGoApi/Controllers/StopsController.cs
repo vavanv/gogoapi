@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Services.Models.Common;
 using Services.Services.Stop;
 
 namespace GoGoApi.Controllers
@@ -26,7 +23,6 @@ namespace GoGoApi.Controllers
         public async Task<IActionResult> GetStopList()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var stops = await _stopService.GetStops();
@@ -36,7 +32,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));

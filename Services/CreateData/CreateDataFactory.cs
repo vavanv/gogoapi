@@ -6,10 +6,7 @@ namespace Services.CreateData
     {
         public ICreteDataResolver Create(MappingDataType type)
         {
-            if (type == MappingDataType.Shapes)
-            {
-                return new ShapesCreteDataResolver();
-            }
+            if (type == MappingDataType.Shapes) return new ShapesCreteDataResolver();
             //else if (type == MappingDataType.Routes)
             //{
             //    _mappingData = new RoutesMappingData();

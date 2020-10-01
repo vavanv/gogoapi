@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
 using Services.CreateData;
-using Services.Models.Common;
 using Services.Services.Shape;
 
 namespace GoGoApi.Controllers
@@ -16,8 +13,8 @@ namespace GoGoApi.Controllers
     [ApiController]
     public class ShapesController : ControllerBase
     {
-        private readonly IShapeService _shapeService;
         private readonly ICreateDataFactory _createDataFactory;
+        private readonly IShapeService _shapeService;
 
         public ShapesController(IShapeService shapeService, ICreateDataFactory createDataFactory)
         {
@@ -29,7 +26,6 @@ namespace GoGoApi.Controllers
         public async Task<IActionResult> GetShapeList()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var shapes = await _shapeService.GetTrainShapes();
@@ -39,7 +35,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
@@ -49,7 +44,6 @@ namespace GoGoApi.Controllers
         public async Task<IActionResult> GetShapeListByShapeId(string shapeId)
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var shapes = await _shapeService.GetShapesByShapeId(shapeId);
@@ -59,7 +53,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));

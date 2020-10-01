@@ -1,4 +1,6 @@
-﻿using Services.Models.Common;
+﻿using System;
+
+using Services.Models.Common;
 
 namespace GoGoApi.PrepareData
 {

@@ -23,7 +23,6 @@ namespace GoGoApi.Controllers
         public async Task<IActionResult> GetShapeList()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var shapes = await _routeService.GetRoutes();
@@ -33,7 +32,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
@@ -43,7 +41,6 @@ namespace GoGoApi.Controllers
         public async Task<IActionResult> GetRoutesForDropDown()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var shapes = await _routeService.GetRoutesForDropDown();
@@ -53,7 +50,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));

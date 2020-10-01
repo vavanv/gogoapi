@@ -17,10 +17,7 @@ namespace Services.DbContextFactory
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(_connectionStringKey);
-            }
+            if (!optionsBuilder.IsConfigured) optionsBuilder.UseSqlServer(_connectionStringKey);
 
             base.OnConfiguring(optionsBuilder);
         }

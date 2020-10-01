@@ -62,10 +62,7 @@ namespace GoGoApi
             app.UseCors(CorsPolicy);
             app.UseRouting();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 

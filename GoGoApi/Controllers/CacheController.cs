@@ -23,11 +23,11 @@ namespace GoGoApi.Controllers
     [ApiController]
     public class CacheController : Controller
     {
+        private readonly IOptions<AccessKey> _accessKey;
+        private readonly IOptions<ActionUrl> _actionUrl;
+        private readonly IOptions<BaseUrlKey> _baseUrl;
         private readonly ICacheService _cacheService;
         private readonly IStopDetailMapper _mapper;
-        private readonly IOptions<BaseUrlKey> _baseUrl;
-        private readonly IOptions<ActionUrl> _actionUrl;
-        private readonly IOptions<AccessKey> _accessKey;
 
         public CacheController(ICacheService cacheService, IStopDetailMapper mapper,
             IOptions<BaseUrlKey> baseUrl, IOptions<ActionUrl> actionUrl, IOptions<AccessKey> accessKey)
@@ -43,7 +43,6 @@ namespace GoGoApi.Controllers
         public async Task<IActionResult> GetStopList()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var stops = await _cacheService.GetStops();
@@ -53,7 +52,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));
@@ -63,7 +61,6 @@ namespace GoGoApi.Controllers
         public IActionResult UpdateData()
         {
             if (ModelState.IsValid)
-            {
                 try
                 {
                     var allStopsUrl = $"{_baseUrl.Value.KeyValue}{_actionUrl.Value.StopAll}";
@@ -105,7 +102,6 @@ namespace GoGoApi.Controllers
                 {
                     ModelState.AddModelError("error", ex.Message);
                 }
-            }
 
             return BadRequest(ModelState.ToDictionary(k => k.Key,
                 k => k.Value.Errors.Select(e => e.ErrorMessage).ToArray()));

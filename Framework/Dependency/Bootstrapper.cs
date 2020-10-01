@@ -11,10 +11,7 @@ namespace Framework.Dependency
         public static void Initialize(IServiceCollection services, IConfiguration configuration,
             IEnumerable<IBootstrapperExtension> extensions)
         {
-            foreach (var extension in extensions)
-            {
-                extension.Initialize(services, configuration);
-            }
+            foreach (var extension in extensions) extension.Initialize(services, configuration);
         }
     }
 }
