@@ -22,7 +22,7 @@
       }
     },
     "GoGoApi": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
