@@ -19,5 +19,4 @@ namespace GoGoApi
                 .UseStartup<Startup>();
         }
     } 
-
 }
