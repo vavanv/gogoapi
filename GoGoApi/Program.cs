@@ -18,5 +18,6 @@ namespace GoGoApi
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
         }
-    }
+    } 
+
 }
